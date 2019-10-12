@@ -12,9 +12,14 @@ public class FoodManager : MonoBehaviour
     public GameObject foods_container;
     public int default_n_foods  =10;
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         foods = new List<GameObject>();
+    }
+
+    void Start()
+    {
+
         gm = FindObjectOfType<GameManager>();
 
         gm.cycle_manager.OnCycleBegin += HandleCycleBegin;
@@ -55,5 +60,18 @@ public class FoodManager : MonoBehaviour
     void Update()
     {
 
+    }
+
+
+    public void DestroyFood(Food food)
+    {
+        foreach (GameObject food_go in foods)
+        {
+            if (food_go.GetComponent<Food>() == food)
+            {
+                foods.Remove(food_go);
+                Destroy(food_go);
+            }
+        }
     }
 }

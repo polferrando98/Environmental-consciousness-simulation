@@ -6,14 +6,14 @@ using UnityEngine;
 public class Human : Entity
 {
     [SerializeField]
-    int movementsPerDay = 2;
+    int movementsPerDay = 1;
     [SerializeField]
     float visionRange = 4f;
     [SerializeField]
     float energy;
     GameManager gm;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         gm = FindObjectOfType<GameManager>();
     }
@@ -29,7 +29,13 @@ public class Human : Entity
         //Daytime food hunt (just eat food for now)
         int foodCount = 0;
         for (int i = 0; i < movementsPerDay; i++)
-            foodCount += FindFood(foods);
+        {
+            Food food = FindFood(foods);
+
+            if (food) foodCount ++;
+
+            gm.food_manager.DestroyFood((food));
+        }
         
         //Daytime actions
         //if (foodCount == 0)
@@ -38,15 +44,18 @@ public class Human : Entity
         //    return Reproduce();
 
     }
-    byte FindFood(List<GameObject> foods)
+    Food FindFood(List<GameObject> foods)
     {
         foreach(GameObject food in foods)
         {
             if (Vector3.Distance(transform.position, food.transform.position) < visionRange)
-                return EatFood(food);
+            {
+                EatFood(food);
+                return food.GetComponent<Food>();
+            }
         }
         visionRange = visionRange * 2;
-        return 0;
+        return null;
 
     }
     byte EatFood(GameObject food)
@@ -54,7 +63,6 @@ public class Human : Entity
         //GOTO Food
         gameObject.transform.position = food.transform.position;
 
-        //gm.DestroyFood(food);
         
 
         energy++;

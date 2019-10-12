@@ -18,21 +18,27 @@ public class HumansManager : MonoBehaviour
         gm = FindObjectOfType<GameManager>();
 
         gm.cycle_manager.OnStart += HandleStart;
+
+        humans = new List<GameObject>();
     }
 
     void Start()
     {
-        humans = new List<GameObject>();
+
 
         gm.cycle_manager.OnCycleMiddle += PassDay;
         
     }
     void PassDay()
     {
-        foreach(GameObject human in humans)
+
+
+        for (int i = 0; i < humans.Count; i++)
         {
-            human.GetComponent<Human>().PassDay();
+            humans[i].GetComponent<Human>().PassDay();
         }
+
+        //humans[0].GetComponent<Human>().PassDay();
     }
     void HandleStart()
     {
@@ -49,7 +55,8 @@ public class HumansManager : MonoBehaviour
 
         for (int i = 0; i < humans_to_spawn; i++)
         {
-            CreateHuman();
+            humans.Add(
+            CreateHuman());
         }
     }
 
@@ -57,7 +64,6 @@ public class HumansManager : MonoBehaviour
     {
         GameObject new_human = Instantiate(human_prefab,humans_container.transform);
         new_human.transform.position = gm.GetNewSpawnPosition();
-        humans.Add(new_human);
         return new_human;
     }
 

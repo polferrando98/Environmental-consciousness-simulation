@@ -8,7 +8,7 @@ public class CycleManager : MonoBehaviour
     public event CycleBeginEvent OnCycleBegin;
 
     public delegate void CycleMiddleEvent();
-    public event CycleBeginEvent OnCycleMiddle;
+    public event CycleMiddleEvent OnCycleMiddle;
 
     public delegate void CycleEndEvent();
     public event CycleEndEvent OnCycleEnd;
@@ -19,11 +19,33 @@ public class CycleManager : MonoBehaviour
     [SerializeField]
     private int time_between_cycles;
 
+    bool first_update;
+    bool is_mid_cycle;
+
     // Start is called before the first frame update
     void Start()
     {
-        OnStart?.Invoke();
-        StartCoroutine(CycleUpdate());
+
+        first_update = true;
+        is_mid_cycle = false;
+    }
+
+    private void Update()
+    {
+        if (first_update)
+        {
+            OnStart?.Invoke();
+            StartCoroutine(CycleUpdate());
+            first_update = false;
+        }
+
+        if (is_mid_cycle)
+        {
+            is_mid_cycle = false;
+            OnCycleMiddle?.Invoke();
+            
+        }
+
     }
 
     IEnumerator CycleUpdate()
@@ -34,11 +56,14 @@ public class CycleManager : MonoBehaviour
             print("new_cycle");
 
             OnCycleBegin?.Invoke();
-            OnCycleMiddle?.Invoke();
+            
             yield return new WaitForSeconds(time_between_cycles);
+
+            is_mid_cycle = true;
             OnCycleEnd?.Invoke();
         }
 
 
     }
+
 }
