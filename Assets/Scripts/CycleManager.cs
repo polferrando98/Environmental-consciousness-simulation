@@ -25,6 +25,11 @@ public class CycleManager : MonoBehaviour
     bool first_update;
     bool is_mid_cycle;
 
+    HumansManager hm;
+    FoodManager fm;
+    GameManager gm;
+    Window_Graph wg;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +37,10 @@ public class CycleManager : MonoBehaviour
         time_to_move = GetComponent<Parameters>().timeToMove;
         first_update = true;
         is_mid_cycle = false;
+        hm = FindObjectOfType<HumansManager>();
+        fm = FindObjectOfType<FoodManager>();
+        gm = FindObjectOfType<GameManager>();
+        wg = FindObjectOfType<Window_Graph>();
     }
 
     private void Update()
@@ -66,12 +75,19 @@ public class CycleManager : MonoBehaviour
 
             yield return new WaitForSeconds(time_to_move);
 
+            Variables.updateHumanData(hm.humans.Count);
+            Variables.updateTreeData(fm.trees.Count);
+            Variables.updateContaminationData(gm.contamination);
+
+            wg.renderPlot();
+
             OnTimeToEat?.Invoke();
+
 
             yield return new WaitForSeconds(time_between_cycles);
 
 
-            Graph.printData();
+           // print(Variables.printData());
 
 
             OnCycleEnd?.Invoke();

@@ -37,8 +37,8 @@ public class HumansManager : MonoBehaviour
     void ProcessDay()
     {
         int nHumans = humans.Count;
-        Graph.updateHumanData(nHumans);
         ListExtensions.Shuffle<GameObject>(humans);
+
         
         for (int i = 0; i < humans.Count; i++)
         {
@@ -99,6 +99,10 @@ public class HumansManager : MonoBehaviour
             humans.Add(
             CreateHuman());
         }
+
+       // Window_Graph wg = FindObjectOfType<Window_Graph>();
+
+        //wg.renderPlot();
     }
 
     GameObject CreateHuman()
