@@ -12,7 +12,7 @@ public class Human : Entity
     [SerializeField] int foodLimit = 2;
     private int n_obtainable_food;
 
-    bool moving;
+    public bool moving;
 
     List<GameObject> target_foods;
 
@@ -27,14 +27,30 @@ public class Human : Entity
 
     private void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (moving)
+        { 
+                float speed = 0.5f;
+
+                Vector3 direction = target_foods[0].transform.position - gameObject.transform.position ;
+
+                direction.y = 0;
+
+                direction = direction.normalized;
+
+                transform.position += direction * speed;
+
+        }
 
     }
+
+
+    
 
     public override GameObject ProcessDay()
     {
@@ -92,7 +108,7 @@ public class Human : Entity
             referenceObject = closestFood.transform.position;
 
         } while (energyLeft > 0 && n_obtainable_food < foodLimit);
-
+        moving = true;
     }
     void PlantTree()
     {
@@ -101,10 +117,16 @@ public class Human : Entity
 
     public GameObject TimeToEat()
     {
+        moving = false;
         for(int i = 0; i<n_obtainable_food; i++)
         {
-            gameObject.transform.position = target_foods[i].transform.position;
             gm.food_manager.DestroyFood(target_foods[i]);
+
+            gm.contamination += 0.01f;
+            if (gm.contamination > 1f)
+                gm.contamination = 1f;
+
+            Graph.updateContaminationData(gm.contamination);
         }
 
         //Daytime actions
@@ -117,15 +139,6 @@ public class Human : Entity
 
     }
 
-    IEnumerator GoToFood()
-    {
-        // suspend execution for 5 seconds
-        if (target_foods.Count>0)
-        {
 
-        }
-
-        yield return new WaitForSeconds(1);
-    }
 
 }
