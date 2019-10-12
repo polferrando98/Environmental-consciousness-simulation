@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     //Change for actual world limits
     private Collider boundaries;
 
+    public float contamination = 0;
+
     void Awake()
     {
         boundaries = GameObject.FindGameObjectsWithTag("Boundary")[0].GetComponent<Collider>();

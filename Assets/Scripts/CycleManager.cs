@@ -59,7 +59,11 @@ public class CycleManager : MonoBehaviour
             yield return new WaitForSeconds(time_between_cycles);
 
             is_mid_cycle = true;
+
+            Graph.printData();
+
             OnCycleEnd?.Invoke();
+            
         }
 
 
