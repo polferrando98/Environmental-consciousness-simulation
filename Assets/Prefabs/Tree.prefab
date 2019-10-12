@@ -225,7 +225,7 @@ MonoBehaviour:
   dead: 0
   daysLived: 0
   reproductionChance: 0.1
-  maxFoodGeneration: 4
+  maxFoodGeneration: 2
   foodGenChance: 1
   foodDropRange: {x: 7, y: 12}
 --- !u!1 &6946495528245129046

@@ -5,20 +5,21 @@ using UnityEngine;
 
 public class Human : Entity
 {
-    [SerializeField]
     float maxEnergy;
     float energy;
     GameManager gm;
+    //How likely it to give up a descendent for a tree
+    float altruism;
+    [SerializeField] Vector2 plantRange;
     [SerializeField] Color bornColor;
     [SerializeField] Color normalColor;
     [SerializeField] Color deadColor;
     [SerializeField] MeshRenderer bodyRenderer;
-    [SerializeField] int foodLimit = 2;
-    private int n_obtainable_food;
-    private int next_food_index = 0;
-    //float total_distance_travelled = 0;
-
-    public bool moving;
+    float maxDeathChance;
+    int foodLimit;
+    int n_obtainable_food;
+    int next_food_index = 0;
+    bool moving;
 
     private Animator anim;
 
@@ -29,8 +30,12 @@ public class Human : Entity
     void Awake()
     {
         moving = false;
-        
         gm = FindObjectOfType<GameManager>();
+        altruism = gm.parameters.humanAltruism;
+        maxEnergy = gm.parameters.humanMaxEnergy;
+        maxDeathChance = gm.parameters.humanMaxDeathChance;
+        reproductionChance = gm.parameters.humanReproductionChance;
+        foodLimit = gm.parameters.humanFoodLimit;
     }
 
     private void Start()
@@ -76,19 +81,13 @@ public class Human : Entity
         }
     }
 
-
-
-
     public override GameObject ProcessDay()
     {
-        if (daysLived == 1)
-            bodyRenderer.material.SetColor("_Color", normalColor);
-        
+
         target_foods = new List<GameObject>();
         List<GameObject> foods = gm.GetFoods();
         //Daytime food hunt (just eat food for now)
         n_obtainable_food = 0;
-        energy = maxEnergy;
         FindFood(foods);
 
         if (target_foods.Count != 0)
@@ -98,15 +97,23 @@ public class Human : Entity
             moving = true;
             next_food_index = 0;
         }
-
-        daysLived++;
+        if (n_obtainable_food == 0)
+        {
+            bodyRenderer.material.SetColor("_Color", deadColor);
+        }
+        else
+        {
+            daysLived++;
+            if (daysLived == 1)
+                bodyRenderer.material.SetColor("_Color", normalColor);
+        }
         return null;
 
     }
     void FindFood(List<GameObject> foods)
     {
 
-        float energyLeft = energy;
+        energy = maxEnergy;
         Vector3 referenceObject = transform.position;
         do
         {
@@ -130,8 +137,8 @@ public class Human : Entity
                 break;
             }
 
-            energyLeft -= minDistance;
-            if (energyLeft > 0)
+            energy -= minDistance;
+            if (energy > 0)
             {
                 n_obtainable_food++;
                 closestFood.GetComponent<Food>().found = true;
@@ -139,23 +146,29 @@ public class Human : Entity
             target_foods.Add(closestFood);
             referenceObject = closestFood.transform.position;
 
-        } while (energyLeft > 0 && n_obtainable_food < foodLimit);
+        } while (energy > 0 && n_obtainable_food < foodLimit);
     }
     void PlantTree()
     {
-        //TODO: Unimplented
+        Utils.SpawnObjectAroundObject(transform.position, gm.treePrefab, plantRange[0], plantRange[1], gm.GetTreeContainer(), true);
     }
-
+    public float GetDeathGenChance()
+    {
+        return gm.contamination * maxDeathChance;
+    }
     public GameObject TimeToEat()
     {
         //Daytime actions
-        if (n_obtainable_food == 0)
-        {
+        float diceRoll = Random.Range(0f,1f);
+        if (diceRoll < GetDeathGenChance() || n_obtainable_food == 0)
             dead = true;
-            bodyRenderer.material.SetColor("_Color", normalColor);
+        else if (n_obtainable_food > 1) {
+            diceRoll = Random.Range(0f, 1f);
+            if (diceRoll < altruism)
+                PlantTree();
+            else
+                return Reproduce(gm.humanPrefab);
         }
-        else if (n_obtainable_food > 1)
-            return Reproduce(gm.humanPrefab);
 
         return null;
 
