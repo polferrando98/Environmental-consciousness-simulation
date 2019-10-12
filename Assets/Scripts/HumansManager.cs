@@ -12,15 +12,14 @@ public class HumansManager : MonoBehaviour
     public GameObject human_prefab;
 
     public GameObject humans_container;
-    public int starting_humans = 10;
 
-    public bool time_to_eat;
+    int starting_humans;
+
     // Start is called before the first frame update
     void Awake()
     {
-        time_to_eat = false;
         gm = FindObjectOfType<GameManager>();
-
+        starting_humans = gm.parameters.startingHumans;
         gm.cycle_manager.OnStart += HandleStart;
 
         humans = new List<GameObject>();
@@ -38,7 +37,8 @@ public class HumansManager : MonoBehaviour
     void ProcessDay()
     {
         int nHumans = humans.Count;
-       // Variables.updateHumanData(nHumans);
+        ListExtensions.Shuffle<GameObject>(humans);
+
         
         for (int i = 0; i < humans.Count; i++)
         {
