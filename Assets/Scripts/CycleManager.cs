@@ -79,7 +79,8 @@ public class CycleManager : MonoBehaviour
             Variables.updateTreeData(fm.trees.Count);
             Variables.updateContaminationData(gm.contamination);
 
-            wg.renderPlot();
+            if(wg)
+                wg.renderPlot();
 
             OnTimeToEat?.Invoke();
 
