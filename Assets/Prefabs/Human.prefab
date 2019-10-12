@@ -382,5 +382,6 @@ MonoBehaviour:
   normalColor: {r: 0, g: 0.20292808, b: 0.6037736, a: 0}
   deadColor: {r: 0, g: 0.07871652, b: 0.13207549, a: 0}
   bodyRenderer: {fileID: 5088155807433882060}
+  maxDeathChance: 0.5
   foodLimit: 2
   moving: 0

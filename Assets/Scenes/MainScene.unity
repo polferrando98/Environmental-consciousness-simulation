@@ -410,9 +410,9 @@ MonoBehaviour:
     type: 3}
   tree_prefab: {fileID: 6217218942792331378, guid: e3db7dd814de63a49a344ba00915af7b,
     type: 3}
-  startingTrees: 7
+  startingTrees: 10
   wasteGeneratedByEating: 0.01
-  wasteAbsorbedByTrees: 0.013
+  wasteAbsorbedByTrees: 0.01
   trees_container: {fileID: 1184784518}
   foods_container: {fileID: 977690877}
 --- !u!1 &773431117

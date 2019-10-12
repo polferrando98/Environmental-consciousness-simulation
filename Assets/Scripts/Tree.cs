@@ -16,16 +16,9 @@ public class Tree : Entity
     {
         gm = GameObject.FindObjectOfType<GameManager>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  
     public float GetDeathChance()
-    {
-        //Example sa de canviar per dinamic
-        
+    {        
         return (float)daysLived/50f;
     }
     public float GetFoodGenChance()

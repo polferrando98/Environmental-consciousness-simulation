@@ -16,6 +16,7 @@ public class Human : Entity
     [SerializeField] Color normalColor;
     [SerializeField] Color deadColor;
     [SerializeField] MeshRenderer bodyRenderer;
+    [SerializeField] float maxDeathChance;
     [SerializeField] int foodLimit = 2;
     private int n_obtainable_food;
     private int next_food_index = 0;
@@ -147,17 +148,18 @@ public class Human : Entity
     {
         Utils.SpawnObjectAroundObject(transform.position, gm.treePrefab, plantRange[0], plantRange[1], gm.GetTreeContainer(), true);
     }
-
+    public float GetDeathGenChance()
+    {
+        return gm.contamination * maxDeathChance;
+    }
     public GameObject TimeToEat()
     {
         //Daytime actions
-        if (n_obtainable_food == 0)
-        {
+        float diceRoll = Random.Range(0f,1f);
+        if (diceRoll < GetDeathGenChance() || n_obtainable_food == 0)
             dead = true;
-            //bodyRenderer.material.SetColor("_Color", deadColor);
-        }
-        if (n_obtainable_food > 1) {
-            float diceRoll = Random.Range(0f, 1f);
+        else if (n_obtainable_food > 1) {
+            diceRoll = Random.Range(0f, 1f);
             if (diceRoll < altruism)
                 PlantTree();
             else
