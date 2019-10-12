@@ -64,7 +64,7 @@ public class CycleManager : MonoBehaviour
     IEnumerator CycleUpdate()
     {
         // suspend execution for 5 seconds
-        while (true)
+        for (int i=0; i<gm.parameters.daysToSimulate; i++)
         {
             yield return new WaitForSeconds(time_between_cycles);
             OnCycleBegin?.Invoke();
