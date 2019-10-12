@@ -221,9 +221,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd27a79c2878a6458da8231b8805088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reproductionRange: 15
+  reproductionRange: {x: 6, y: 12}
   dead: 0
-  foodDropRange: 2
+  reproductionChance: 0.1
+  maxFoodGeneration: 4
+  foodGenChance: 1
+  foodDropRange: {x: 7, y: 12}
 --- !u!1 &6946495528245129046
 GameObject:
   m_ObjectHideFlags: 0

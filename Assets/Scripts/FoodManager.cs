@@ -10,8 +10,8 @@ public class FoodManager : MonoBehaviour
     public List<GameObject> trees;
     public GameObject food_prefab;
 
-    [SerializeField] private GameObject tree_prefab;
-    [SerializeField] private int startingTrees;
+    [SerializeField] GameObject tree_prefab;
+    [SerializeField] int startingTrees;
 
     public GameObject trees_container;
     public GameObject foods_container;
@@ -36,7 +36,7 @@ public class FoodManager : MonoBehaviour
     void HandleStart()
     {
         //Generate trees
-        //GenerateAllTrees();
+        GenerateAllTrees();
     }
     void GenerateAllTrees()
     {
@@ -54,11 +54,15 @@ public class FoodManager : MonoBehaviour
     }
     void HandleCycleBegin()
     {
-        //ProcessDay();
-        GenerateAllFood();
+        ProcessDay();
     }
     void ProcessDay()
     {
+        //Destroy old food
+        for (int i = 0; i < foods.Count; i++)
+            Destroy(foods[i]);
+        foods.Clear();
+
         int nTrees = trees.Count;
 
         List<GameObject> newTrees = new List<GameObject>();
