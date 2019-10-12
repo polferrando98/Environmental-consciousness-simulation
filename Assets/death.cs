@@ -22,8 +22,9 @@ public class death : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Instantiate(smoke_explosion,animator.gameObject.transform.position,animator.gameObject.transform.rotation);
-        Destroy(animator.gameObject);
     }
+
+
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
