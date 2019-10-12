@@ -8,52 +8,62 @@ public class HumansManager : MonoBehaviour
 
     public List<GameObject> humans;
 
-    public GameObject uman_prefav;
+    public GameObject human_prefab;
 
     public GameObject humans_container;
-
+    public int starting_humans = 10;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        humans = new List<GameObject>();
         gm = FindObjectOfType<GameManager>();
 
-        gm.cycle_manager.OnCycleBegin += HandleCycleBegin;
-        gm.cycle_manager.OnCycleEnd += HandleCycleEnd;
+        gm.cycle_manager.OnStart += HandleStart;
+
+        humans = new List<GameObject>();
     }
 
-    void HandleCycleBegin()
+    void Start()
     {
+
+
+        gm.cycle_manager.OnCycleMiddle += PassDay;
+        
+    }
+    void PassDay()
+    {
+
+
+        for (int i = 0; i < humans.Count; i++)
+        {
+            humans[i].GetComponent<Human>().PassDay();
+        }
+
+        //humans[0].GetComponent<Human>().PassDay();
+    }
+    void HandleStart()
+    {
+        print("Humans spawned");
         GenerateAllHumans();
     }
-
-    void HandleCycleEnd()
+    int NHumansToSpawn()
     {
-
+        return starting_humans;
     }
-
     void GenerateAllHumans()
     {
-        int humans_to_spawn = Random.Range(1, 10);
+        int humans_to_spawn = NHumansToSpawn();
 
         for (int i = 0; i < humans_to_spawn; i++)
         {
-            CreateHuman();
+            humans.Add(
+            CreateHuman());
         }
-    }
-
-    public Vector3 GetNewSpawnPosition()
-    {
-        float x = Random.Range(0,100);
-        float z = Random.Range(0, 100);
-        return new Vector3(x, 0f, z);
     }
 
     GameObject CreateHuman()
     {
-        GameObject new_human = Instantiate(uman_prefav,humans_container.transform);
-        new_human.transform.position = GetNewSpawnPosition();
-        humans.Add(new_human);
+        GameObject new_human = Instantiate(human_prefab,humans_container.transform);
+        new_human.transform.position = gm.GetNewSpawnPosition();
         return new_human;
     }
 

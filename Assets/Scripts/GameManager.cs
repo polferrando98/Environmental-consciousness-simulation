@@ -5,33 +5,29 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public HumansManager humans_manager;
+    public FoodManager food_manager;
     public CycleManager cycle_manager;
 
 
     public GameObject humanPrefab;
     public GameObject foodPrefab;
-    public List<GameObject> foods;
-
     
     public bool activateTime = false;
     public int foodPerDay = 5;
-    [SerializeField]
-    private int startingHumans = 5;
     //Change for actual world limits
-    public Vector4 worldLimits;
+    private Collider boundaries;
 
     void Awake()
     {
+        boundaries = GameObject.FindGameObjectsWithTag("Boundary")[0].GetComponent<Collider>();
         cycle_manager = GetComponent<CycleManager>();
         humans_manager = GetComponent<HumansManager>();
+        food_manager = GetComponent<FoodManager>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        GenerateHumans();
-
-
 
     }
 
@@ -40,30 +36,20 @@ public class GameManager : MonoBehaviour
     {
   
     }
-    public List<GameObject> GenerateObject(GameObject prefab, int n_spawn)
+    public List<GameObject> GetFoods()
     {
-        List<GameObject> list = new List<GameObject>(n_spawn);
-        for (int i = 0; i < n_spawn; i++)
-            list.Add(Instantiate(prefab, GetNewSpawnPosition(), Quaternion.identity));
-        return list;
+        return food_manager.foods;
     }
-    public void GenerateHumans()
+    public Collider GetCollider()
     {
-
-    }
-    public void GenerateFood()
-    {
-        foods = GenerateObject(foodPrefab, foodPerDay);
+        return boundaries; 
     }
     public Vector3 GetNewSpawnPosition()
     {
-        float x = Random.Range(worldLimits[0], worldLimits[1]);
-        float z = Random.Range(worldLimits[2], worldLimits[3]);
+        float x = Random.Range(boundaries.transform.position.x-boundaries.bounds.size.x/2f, 
+            boundaries.transform.position.x + boundaries.bounds.size.x / 2f);
+        float z = Random.Range(boundaries.transform.position.z - boundaries.bounds.size.z / 2f,
+            boundaries.transform.position.z + boundaries.bounds.size.z / 2f);
         return new Vector3(x, 0f, z);
-    }
-    public void DestroyFood(GameObject food)
-    {
-        foods.Remove(food);
-        Destroy(food);
     }
 }
