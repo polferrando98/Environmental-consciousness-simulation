@@ -17,7 +17,7 @@ public class CycleManager : MonoBehaviour
     public event StartEvent OnStart;
 
     [SerializeField]
-    private int time_between_cycles;
+    private float time_between_cycles;
 
     bool first_update;
     bool is_mid_cycle;
@@ -55,6 +55,7 @@ public class CycleManager : MonoBehaviour
         {
             print("new_cycle");
 
+            yield return new WaitForSeconds(time_between_cycles);
             OnCycleBegin?.Invoke();
             
             yield return new WaitForSeconds(time_between_cycles);

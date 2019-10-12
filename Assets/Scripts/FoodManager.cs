@@ -63,15 +63,18 @@ public class FoodManager : MonoBehaviour
     }
 
 
-    public void DestroyFood(Food food)
+    public void DestroyFood(GameObject food)
     {
-        foreach (GameObject food_go in foods)
+        foods.Remove(food);
+        Destroy(food);
+
+        /*foreach (GameObject food_go in foods)
         {
             if (food_go.GetComponent<Food>() == food)
             {
                 foods.Remove(food_go);
                 Destroy(food_go);
             }
-        }
+        }*/
     }
 }

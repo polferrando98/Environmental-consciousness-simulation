@@ -12,6 +12,7 @@ public class Human : Entity
     [SerializeField]
     float energy;
     GameManager gm;
+    bool dead = false;
     // Start is called before the first frame update
     void Awake()
     {
@@ -30,28 +31,28 @@ public class Human : Entity
         int foodCount = 0;
         for (int i = 0; i < movementsPerDay; i++)
         {
-            Food food = FindFood(foods);
+            GameObject food = FindFood(foods);
 
             if (food) foodCount ++;
 
-            gm.food_manager.DestroyFood((food));
+            gm.food_manager.DestroyFood(food);
         }
-        
+
         //Daytime actions
-        //if (foodCount == 0)
-        //    gm.DestroyHuman(gameObject);
+        if (foodCount == 0)
+            dead = true;
         //else if (foodCount > 1)
         //    return Reproduce();
 
     }
-    Food FindFood(List<GameObject> foods)
+    GameObject FindFood(List<GameObject> foods)
     {
         foreach(GameObject food in foods)
         {
             if (Vector3.Distance(transform.position, food.transform.position) < visionRange)
             {
                 EatFood(food);
-                return food.GetComponent<Food>();
+                return food;
             }
         }
         visionRange = visionRange * 2;
