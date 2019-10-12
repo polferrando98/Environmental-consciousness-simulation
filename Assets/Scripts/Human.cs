@@ -11,6 +11,7 @@ public class Human : Entity
     GameManager gm;
     [SerializeField] int foodLimit = 2;
     private int n_obtainable_food;
+    float total_distance_travelled = 0;
 
     public bool moving;
 
@@ -35,19 +36,49 @@ public class Human : Entity
     {
         if (moving)
         {
-            float speed = 0.5f;
-
-            float arriving_radius = 3;
-
-            Vector3 distance = target_foods[0].transform.position - gameObject.transform.position;
-
-            distance.y = 0;
-
-            Vector3 direction = distance.normalized;
 
 
-            transform.position += direction * speed;
+            float arriving_radius = 0.5f;
 
+            float speed = maxEnergy * Time.deltaTime / (gm.cycle_manager.time_to_move) ;
+
+            for (int i = 0; i < target_foods.Count; i++) {
+
+                Vector3 distance = target_foods[i].transform.position - gameObject.transform.position;
+                distance.y = 0;
+
+
+                
+
+
+                Vector3 direction = distance.normalized;
+
+                if (distance.magnitude < arriving_radius)
+                {
+                    float radius_ratio = (1 - (arriving_radius * distance.magnitude));
+                    float arriving_speed = radius_ratio * speed;
+
+                    if (arriving_speed > distance.magnitude) arriving_speed = distance.magnitude;
+
+                    if (total_distance_travelled < maxEnergy)
+                    {
+                        transform.position += direction * arriving_speed;
+                        total_distance_travelled += arriving_speed;
+                    }
+                }
+                else
+                {
+                    if (total_distance_travelled < energy)
+                    {
+                        transform.position += direction * speed;
+                        total_distance_travelled += speed;
+                    }
+                }
+            }
+
+        }else
+        {
+            total_distance_travelled = 0;
         }
 
     }
@@ -68,6 +99,9 @@ public class Human : Entity
         {
             //MOVE TOWARDS FOOD
             //StartCoroutine(GoToFood());
+
+            
+
             moving = true;
         }
 

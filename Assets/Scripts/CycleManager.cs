@@ -21,6 +21,7 @@ public class CycleManager : MonoBehaviour
 
     [SerializeField]
     private float time_between_cycles;
+    public float time_to_move;
 
     bool first_update;
     bool is_mid_cycle;
@@ -63,7 +64,7 @@ public class CycleManager : MonoBehaviour
 
             is_mid_cycle = true;
 
-            yield return new WaitForSeconds(time_between_cycles);
+            yield return new WaitForSeconds(time_to_move);
 
             OnTimeToEat?.Invoke();
 
