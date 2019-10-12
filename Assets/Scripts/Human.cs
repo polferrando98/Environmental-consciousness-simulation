@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Human : Entity
 {
-    const int MOVEMENTSPERDAY = 2;
+    const int movementsPerDay = 2;
     float visionRange = 10f;
     public float energy;
     public GameManager gm;
@@ -20,43 +20,43 @@ public class Human : Entity
     {
         
     }
-    public Entity passDay(List<GameObject> foods)
+    public Entity PassDay(List<GameObject> foods)
     {
         //Daytime food hunt (just eat food for now)
         int foodCount = 0;
-        for (int i = 0; i < MOVEMENTSPERDAY; i++)
-            foodCount += findFood(foods);
+        for (int i = 0; i < movementsPerDay; i++)
+            foodCount += FindFood(foods);
 
         //Daytime actions
         if (foodCount == 0)
             gm.DestroyHuman(gameObject);
         else if (foodCount > 1)
-            return reproduce();
+            return Reproduce();
 
         return null;
 
     }
-    byte findFood(List<GameObject> foods)
+    byte FindFood(List<GameObject> foods)
     {
         foreach(GameObject food in foods)
         {
             if (Vector3.Distance(transform.position, food.transform.position) < visionRange)
-                return eatFood(food);
+                return EatFood(food);
         }
         return 0;
 
     }
-    byte eatFood(GameObject food)
+    byte EatFood(GameObject food)
     {
         //GameManager.DestroyFood(f);
         energy++;
         return 1;
     }
-    void plantTree()
+    void PlantTree()
     {
         //TODO: Unimplented
     }
-    protected override Entity reproduce()
+    protected override Entity Reproduce()
     {
         return new Human();
     }

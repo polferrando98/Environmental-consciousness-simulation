@@ -16,5 +16,5 @@ public abstract class Entity : MonoBehaviour
 
     }
     //maybe not abstract
-    protected abstract Entity reproduce();
+    protected abstract Entity Reproduce();
 }
