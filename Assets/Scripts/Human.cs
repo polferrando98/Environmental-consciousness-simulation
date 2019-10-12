@@ -5,10 +5,13 @@ using UnityEngine;
 
 public class Human : Entity
 {
-    const int movementsPerDay = 2;
+    [SerializeField]
+    int movementsPerDay = 2;
+    [SerializeField]
     float visionRange = 4f;
-    public float energy;
-    public GameManager gm;
+    [SerializeField]
+    float energy;
+    GameManager gm;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,19 +25,17 @@ public class Human : Entity
     }
     public override void PassDay()
     {
-        List<GameObject> foods = gm.foods;
+        List<GameObject> foods = gm.GetFoods();
         //Daytime food hunt (just eat food for now)
         int foodCount = 0;
         for (int i = 0; i < movementsPerDay; i++)
             foodCount += FindFood(foods);
-
+        
         //Daytime actions
         //if (foodCount == 0)
         //    gm.DestroyHuman(gameObject);
         //else if (foodCount > 1)
         //    return Reproduce();
-
-        return null;
 
     }
     byte FindFood(List<GameObject> foods)
@@ -50,10 +51,11 @@ public class Human : Entity
     }
     byte EatFood(GameObject food)
     {
+        //GOTO Food
         gameObject.transform.position = food.transform.position;
 
-        gm.DestroyFood(food);
-        //GOTO Food
+        //gm.DestroyFood(food);
+        
 
         energy++;
         return 1;

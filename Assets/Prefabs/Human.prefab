@@ -309,5 +309,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d13b1d481f59e4e853e722967066b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementsPerDay: 2
+  visionRange: 20
   energy: 0
-  gm: {fileID: 0}
