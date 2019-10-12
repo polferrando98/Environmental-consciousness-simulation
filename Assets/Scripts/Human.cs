@@ -54,7 +54,7 @@ public class Human : Entity
             {
 
                 Vector3 distance = target_foods[next_food_index].transform.position - gameObject.transform.position;
-                distance.y = 0;
+                distance.y = transform.position.y;
 
                 Vector3 direction = distance.normalized;
 
