@@ -21,4 +21,6 @@ public class Parameters : MonoBehaviour
     public int startingTrees;
     public float wasteGeneratedByEating;
     public float wasteAbsorbedByTrees;
+
+    public int daysToSimulate;
 }
