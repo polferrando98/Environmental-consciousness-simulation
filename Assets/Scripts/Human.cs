@@ -20,6 +20,8 @@ public class Human : Entity
 
     public bool moving;
 
+    private Animator anim;
+
     List<GameObject> target_foods;
 
 
@@ -33,7 +35,8 @@ public class Human : Entity
 
     private void Start()
     {
-        
+        anim = GetComponentInChildren<Animator>();
+
     }
 
     // Update is called once per frame
@@ -157,7 +160,23 @@ public class Human : Entity
         return null;
 
     }
+    public override bool Kill()
+    {
+        if (dead)
+        {
+            //Destroy(gameObject);
+            anim.SetBool("dead", true);
 
+            StartCoroutine(DieAfterSeconds(2.5f));
+            return true;
+        }
+        return false;
+    }
+
+    IEnumerator DieAfterSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+    }
 
 
 }

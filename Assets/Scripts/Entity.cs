@@ -34,7 +34,7 @@ public abstract class Entity : MonoBehaviour
             return null;
         
     }
-    public bool Kill()
+    public virtual bool Kill()
     {
         if (dead)
         {
