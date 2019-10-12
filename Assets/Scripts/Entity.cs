@@ -24,12 +24,12 @@ public abstract class Entity : MonoBehaviour
         //Posar aqui dependencia amb contamination
     }
     public abstract GameObject ProcessDay();
-    protected GameObject Reproduce()
+    protected GameObject Reproduce(GameObject prefab)
     {
         UpdateReproductionChance();
         float diceRoll = Random.Range(0f, 1f);
         if (diceRoll < reproductionChance)
-            return Utils.SpawnObjectAroundObject(transform.position, gameObject, reproductionRange[0], reproductionRange[1], gameObject.transform.parent, true);
+            return Utils.SpawnObjectAroundObject(transform.position, prefab, reproductionRange[0], reproductionRange[1], gameObject.transform.parent, true);
         else
             return null;
         

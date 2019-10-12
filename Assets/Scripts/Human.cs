@@ -9,6 +9,10 @@ public class Human : Entity
     float maxEnergy;
     float energy;
     GameManager gm;
+    [SerializeField] Color bornColor;
+    [SerializeField] Color normalColor;
+    [SerializeField] Color deadColor;
+    [SerializeField] MeshRenderer bodyRenderer;
     [SerializeField] int foodLimit = 2;
     private int n_obtainable_food;
     float total_distance_travelled = 0;
@@ -88,6 +92,9 @@ public class Human : Entity
 
     public override GameObject ProcessDay()
     {
+        if (daysLived == 1)
+            bodyRenderer.material.SetColor("_Color", normalColor);
+        
         target_foods = new List<GameObject>();
         List<GameObject> foods = gm.GetFoods();
         //Daytime food hunt (just eat food for now)
@@ -105,6 +112,7 @@ public class Human : Entity
             moving = true;
         }
 
+        daysLived++;
         return null;
 
     }
@@ -168,9 +176,12 @@ public class Human : Entity
 
         //Daytime actions
         if (n_obtainable_food == 0)
+        {
             dead = true;
+            bodyRenderer.material.SetColor("_Color", normalColor);
+        }
         else if (n_obtainable_food > 1)
-            return Reproduce();
+            return Reproduce(gm.humanPrefab);
 
         return null;
 
