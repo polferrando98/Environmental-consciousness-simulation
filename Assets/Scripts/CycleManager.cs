@@ -10,6 +10,9 @@ public class CycleManager : MonoBehaviour
     public delegate void CycleMiddleEvent();
     public event CycleMiddleEvent OnCycleMiddle;
 
+    public delegate void TimeToLookForFoodEvent();
+    public event TimeToLookForFoodEvent OnTimeToEat;
+
     public delegate void CycleEndEvent();
     public event CycleEndEvent OnCycleEnd;
 
@@ -59,6 +62,11 @@ public class CycleManager : MonoBehaviour
             yield return new WaitForSeconds(time_between_cycles);
 
             is_mid_cycle = true;
+            yield return new WaitForSeconds(time_between_cycles);
+
+            OnTimeToEat?.Invoke();
+
+            yield return new WaitForSeconds(time_between_cycles);
             OnCycleEnd?.Invoke();
         }
 

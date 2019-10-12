@@ -12,10 +12,22 @@ public class Human : Entity
     [SerializeField]
     float energy;
     GameManager gm;
+
+    private int food_count;
+
+    Food food_found;
     // Start is called before the first frame update
     void Awake()
     {
         gm = FindObjectOfType<GameManager>();
+
+            
+        
+    }
+
+    private void Start()
+    {
+        
     }
 
     // Update is called once per frame
@@ -28,20 +40,26 @@ public class Human : Entity
     {
         List<GameObject> foods = gm.GetFoods();
         //Daytime food hunt (just eat food for now)
-        int foodCount = 0;
+        food_count = 0;
         for (int i = 0; i < movementsPerDay; i++)
         {
             GameObject food = FindFood(foods);
 
-            if (food) foodCount ++;
+            if (food)
+            {
+                food_count++;
 
-            gm.food_manager.DestroyFood(food);
+
+
+            }
         }
 
+        //StartCoroutine(GoToFood());
+
         //Daytime actions
-        if (foodCount == 0)
+        if (food_count == 0)
             dead = true;
-        else if (foodCount > 1)
+        else if (food_count > 1)
             return Reproduce();
 
         return null;
@@ -53,21 +71,22 @@ public class Human : Entity
         {
             if (Vector3.Distance(transform.position, food.transform.position) < visionRange)
             {
-                EatFood(food);
-                return food;
+                food_found = food.GetComponent<Food>();
+                if (food_found.found == false)
+                {
+                    
+                    food_found.found = true;
+
+                    return food;
+                }
             }
         }
         visionRange = visionRange * 1.2f;
         return null;
 
     }
-    byte EatFood(GameObject food)
+    byte EatFood()
     {
-        //GOTO Food
-        gameObject.transform.position = food.transform.position;
-
-        
-
         energy++;
         return 1;
     }
@@ -75,4 +94,29 @@ public class Human : Entity
     {
         //TODO: Unimplented
     }
+
+    public void TimeToEat()
+    {
+        if (gameObject && food_found)
+        {
+            gameObject.transform.position = food_found.transform.position;
+            EatFood();
+            gm.food_manager.DestroyFood(food_found.gameObject);
+        }
+
+    }
+
+    //IEnumerator GoToFood()
+    //{
+    //    // suspend execution for 5 seconds
+    //    if (food_found) { 
+
+    //}
+
+    //    yield return new WaitForSeconds(1);
+
+    //    //GOTO Food
+    //    //gameObject.transform.position = food.transform.position;
+
+    //}
 }
