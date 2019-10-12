@@ -6,7 +6,7 @@ using UnityEngine;
 public class Human : Entity
 {
     const int movementsPerDay = 2;
-    float visionRange = 10f;
+    float visionRange = 5f;
     public float energy;
     public GameManager gm;
     // Start is called before the first frame update
@@ -43,6 +43,7 @@ public class Human : Entity
             if (Vector3.Distance(transform.position, food.transform.position) < visionRange)
                 return EatFood(food);
         }
+        visionRange = visionRange * 2;
         return 0;
 
     }

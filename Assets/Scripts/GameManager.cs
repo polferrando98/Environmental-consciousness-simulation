@@ -31,12 +31,12 @@ public class GameManager : MonoBehaviour
         {
             GenerateFood();
 
-            /*System.Threading.Thread.Sleep(2000);
+            System.Threading.Thread.Sleep(2000);
             //Human actions
-            foreach (Human h in humans)
+            foreach (GameObject human in humans)
             {
-                h.passDay(foods);
-            }*/
+                human.GetComponent<Human>().PassDay(foods);
+            }
             activateTime = false;
         }   
     }
