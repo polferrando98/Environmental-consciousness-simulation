@@ -8,6 +8,7 @@ public class Window_Graph : MonoBehaviour {
 
     [SerializeField] private Sprite circleSprite;
     private RectTransform graphContainer;
+    GameManager gm;
 
     private void Awake() {
         graphContainer = transform.Find("graphContainer").GetComponent<RectTransform>();
@@ -35,12 +36,12 @@ public class Window_Graph : MonoBehaviour {
         rectTransform.anchorMax = new Vector2(0, 0);
         return gameObject;
     }
-
+    
     private void ShowGraph(List<int> valueList) {
         float graphHeight = graphContainer.sizeDelta.y;
         float yMaximum = 100f;
         RectTransform rectTransform = GameObject.Find("graphContainer").GetComponent<RectTransform>();
-        float xSize = (float)(graphContainer.sizeDelta.x) /((float)valueList.Count+1f);
+        float xSize = (float)(graphContainer.sizeDelta.x - 30f) /((float)gm.parameters.days);
         // rectTransform.rect.width-30f
         GameObject lastCircleGameObject = null;
         for (int i = 0; i < valueList.Count; i++) {
