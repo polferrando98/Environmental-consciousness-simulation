@@ -126,9 +126,6 @@ public class Human : Entity
         }
 
         yield return new WaitForSeconds(1);
-
-        //GOTO Food
-        //gameObject.transform.position = food.transform.position;
-
     }
+
 }

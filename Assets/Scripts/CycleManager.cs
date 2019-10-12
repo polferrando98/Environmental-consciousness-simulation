@@ -62,12 +62,19 @@ public class CycleManager : MonoBehaviour
             yield return new WaitForSeconds(time_between_cycles);
 
             is_mid_cycle = true;
+
             yield return new WaitForSeconds(time_between_cycles);
 
             OnTimeToEat?.Invoke();
 
             yield return new WaitForSeconds(time_between_cycles);
+
+
+            Graph.printData();
+
+
             OnCycleEnd?.Invoke();
+            
         }
 
 
