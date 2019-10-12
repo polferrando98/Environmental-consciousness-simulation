@@ -78,14 +78,11 @@ public class Human : Entity
 
     public override GameObject ProcessDay()
     {
-        if (daysLived == 1)
-            bodyRenderer.material.SetColor("_Color", normalColor);
-        
+
         target_foods = new List<GameObject>();
         List<GameObject> foods = gm.GetFoods();
         //Daytime food hunt (just eat food for now)
         n_obtainable_food = 0;
-        energy = maxEnergy;
         FindFood(foods);
 
         if (target_foods.Count != 0)
@@ -95,15 +92,23 @@ public class Human : Entity
             moving = true;
             next_food_index = 0;
         }
-
-        daysLived++;
+        if (n_obtainable_food == 0)
+        {
+            bodyRenderer.material.SetColor("_Color", deadColor);
+        }
+        else
+        {
+            daysLived++;
+            if (daysLived == 1)
+                bodyRenderer.material.SetColor("_Color", normalColor);
+        }
         return null;
 
     }
     void FindFood(List<GameObject> foods)
     {
 
-        float energyLeft = energy;
+        energy = maxEnergy;
         Vector3 referenceObject = transform.position;
         do
         {
@@ -127,8 +132,8 @@ public class Human : Entity
                 break;
             }
 
-            energyLeft -= minDistance;
-            if (energyLeft > 0)
+            energy -= minDistance;
+            if (energy > 0)
             {
                 n_obtainable_food++;
                 closestFood.GetComponent<Food>().found = true;
@@ -136,7 +141,7 @@ public class Human : Entity
             target_foods.Add(closestFood);
             referenceObject = closestFood.transform.position;
 
-        } while (energyLeft > 0 && n_obtainable_food < foodLimit);
+        } while (energy > 0 && n_obtainable_food < foodLimit);
     }
     void PlantTree()
     {
@@ -149,9 +154,9 @@ public class Human : Entity
         if (n_obtainable_food == 0)
         {
             dead = true;
-            bodyRenderer.material.SetColor("_Color", normalColor);
+            //bodyRenderer.material.SetColor("_Color", deadColor);
         }
-        else if (n_obtainable_food > 1)
+        if (n_obtainable_food > 1)
             return Reproduce(gm.humanPrefab);
 
         return null;
