@@ -6,90 +6,93 @@ using UnityEngine;
 public class Human : Entity
 {
     [SerializeField]
-    int movementsPerDay = 1;
-    [SerializeField]
-    float visionRange;
-    [SerializeField]
+    float maxEnergy;
     float energy;
     GameManager gm;
-
-    private int food_count;
+    [SerializeField] int foodLimit = 2;
+    private int n_obtainable_food;
 
     bool moving;
 
-    Food food_found;
+    List<GameObject> target_foods;
 
 
     // Start is called before the first frame update
     void Awake()
     {
         moving = false;
-        gm = FindObjectOfType<GameManager>();
-
-            
         
+        gm = FindObjectOfType<GameManager>();
     }
 
     private void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
-    
+
     public override GameObject ProcessDay()
     {
+        target_foods = new List<GameObject>();
         List<GameObject> foods = gm.GetFoods();
         //Daytime food hunt (just eat food for now)
-        food_count = 0;
-        for (int i = 0; i < movementsPerDay; i++)
+        n_obtainable_food = 0;
+        energy = maxEnergy;
+        FindFood(foods);
+
+        if (target_foods.Count != 0)
         {
-            GameObject food = FindFood(foods);
-
-            if (food)
-            {
-                food_count++;
-
-
-                moving = true;
-            }
+            //MOVE TOWARDS FOOD
+            //StartCoroutine(GoToFood());
+            moving = true;
         }
-
-        //StartCoroutine(GoToFood());
-
-
 
         return null;
 
     }
-    GameObject FindFood(List<GameObject> foods)
+    void FindFood(List<GameObject> foods)
     {
-        foreach(GameObject food in foods)
-        {
-            if (Vector3.Distance(transform.position, food.transform.position) < visionRange)
-            {
-                food_found = food.GetComponent<Food>();
-                if (food_found.found == false)
-                {
-                    
-                    food_found.found = true;
 
-                    return food;
+        float energyLeft = energy;
+        Vector3 referenceObject = transform.position;
+        do
+        {
+            float minDistance = float.MaxValue;
+            GameObject closestFood = null;
+            for (int i = 0; i < foods.Count; i++)
+            {
+                if (!foods[i].GetComponent<Food>().found)
+                {
+                    //Get closest food
+                    float distance = Vector3.Distance(referenceObject, foods[i].transform.position);
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        closestFood = foods[i];
+                    }
                 }
             }
-        }
-        visionRange = visionRange * 1.2f;
-        return null;
+            if (!closestFood)
+            {
+                break;
+            }
 
-    }
-    byte EatFood()
-    {
-        energy++;
-        return 1;
+            energyLeft -= minDistance;
+            if (energyLeft > 0)
+            {
+                n_obtainable_food++;
+                closestFood.GetComponent<Food>().found = true;
+            }
+            target_foods.Add(closestFood);
+            referenceObject = closestFood.transform.position;
+
+        } while (energyLeft > 0 && n_obtainable_food < foodLimit);
+
     }
     void PlantTree()
     {
@@ -98,34 +101,34 @@ public class Human : Entity
 
     public GameObject TimeToEat()
     {
-        if (gameObject && food_found)
+        for(int i = 0; i<n_obtainable_food; i++)
         {
-            gameObject.transform.position = food_found.transform.position;
-            EatFood();
-            gm.food_manager.DestroyFood(food_found.gameObject);
+            gameObject.transform.position = target_foods[i].transform.position;
+            gm.food_manager.DestroyFood(target_foods[i]);
         }
 
         //Daytime actions
-        if (food_count == 0)
+        if (n_obtainable_food == 0)
             dead = true;
-        else if (food_count > 1)
+        else if (n_obtainable_food > 1)
             return Reproduce();
 
         return null;
 
     }
 
-    //IEnumerator GoToFood()
-    //{
-    //    // suspend execution for 5 seconds
-    //    if (food_found) { 
+    IEnumerator GoToFood()
+    {
+        // suspend execution for 5 seconds
+        if (target_foods.Count>0)
+        {
 
-    //}
+        }
 
-    //    yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1);
 
-    //    //GOTO Food
-    //    //gameObject.transform.position = food.transform.position;
+        //GOTO Food
+        //gameObject.transform.position = food.transform.position;
 
-    //}
+    }
 }

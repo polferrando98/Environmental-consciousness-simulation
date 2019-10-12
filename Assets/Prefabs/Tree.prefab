@@ -223,6 +223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reproductionRange: {x: 6, y: 12}
   dead: 0
+  daysLived: 0
   reproductionChance: 0.1
   maxFoodGeneration: 4
   foodGenChance: 1

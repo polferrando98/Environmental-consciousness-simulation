@@ -375,6 +375,5 @@ MonoBehaviour:
   dead: 0
   daysLived: 0
   reproductionChance: 1
-  movementsPerDay: 1
-  visionRange: 7
-  energy: 0
+  maxEnergy: 14
+  foodLimit: 2
