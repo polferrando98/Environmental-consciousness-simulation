@@ -13,9 +13,12 @@ public class HumansManager : MonoBehaviour
 
     public GameObject humans_container;
     public int starting_humans = 10;
+
+    public bool time_to_eat;
     // Start is called before the first frame update
     void Awake()
     {
+        time_to_eat = false;
         gm = FindObjectOfType<GameManager>();
 
         gm.cycle_manager.OnStart += HandleStart;
@@ -28,35 +31,61 @@ public class HumansManager : MonoBehaviour
 
 
         gm.cycle_manager.OnCycleMiddle += ProcessDay;
-        
+        gm.cycle_manager.OnCycleEnd += HandleEnd;
+        gm.cycle_manager.OnTimeToEat += TimeToEat;
+
     }
     void ProcessDay()
     {
         int nHumans = humans.Count;
         Graph.updateHumanData(nHumans);
 
-        List<GameObject> newHumans = new List<GameObject>();
+        
         for (int i = 0; i < humans.Count; i++)
         {
-            GameObject newHuman = humans[i].GetComponent<Human>().ProcessDay();
+            humans[i].GetComponent<Human>().ProcessDay();
             //If it reproduced we store the new human
-            if (newHuman)
-            {
-                newHumans.Add(newHuman);
-                newHuman.transform.SetParent(humans_container.transform);
-            }
+
         }
-        //Kill dead humans
-        humans = humans.Where(human => !human.GetComponent<Human>().Kill()).ToList();
-        //print("DAY X: Started with " + nHumans+"humans, "+ (nHumans - humans.Count) + " died, "+ newHumans.Count + " born");
+
+        //Kill dead humans        print("DAY X: Started with " + nHumans+"humans, "+ (nHumans - humans.Count) + " died, "+ newHumans.Count + " born");
         //Store new humans in the same vector as before
-        humans.AddRange(newHumans);
+        
         
         
     }
     void HandleStart()
     {
         GenerateAllHumans();
+    }
+
+    void TimeToEat()
+    {
+        List<GameObject> newHumans = new List<GameObject>();
+        for (int i = 0; i < humans.Count; i++)
+        {
+            GameObject newHuman = humans[i].GetComponent<Human>().TimeToEat();
+
+            if (newHuman)
+            {
+                newHumans.Add(newHuman);
+                newHuman.transform.SetParent(humans_container.transform);
+            }
+        }
+
+
+        humans = humans.Where(human => !human.GetComponent<Human>().Kill()).ToList();
+
+        //print("DAY X: Started with " + nHumans+"humans, "+ (nHumans - humans.Count) + " died, "+ newHumans.Count + " born");
+        //Store new humans in the same vector as before
+
+        humans.AddRange(newHumans);
+
+    }
+
+    void HandleEnd()
+    {
+
     }
     int NHumansToSpawn()
     {
