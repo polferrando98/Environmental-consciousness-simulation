@@ -33,26 +33,28 @@ public class GameManager : MonoBehaviour
 
             System.Threading.Thread.Sleep(2000);
             //Human actions
+            Debug.Log("Length of humans " + humans.Count);
             foreach (GameObject human in humans)
             {
-                human.GetComponent<Human>().PassDay(foods);
+                human.GetComponent<Human>().PassDay();
             }
             activateTime = false;
         }   
     }
-    public void GenerateComponent(GameObject prefab, List<GameObject> list, int n_spawn)
+    public List<GameObject> GenerateObject(GameObject prefab, int n_spawn)
     {
-        list = new List<GameObject>(n_spawn);
+        List<GameObject> list = new List<GameObject>(n_spawn);
         for (int i = 0; i < n_spawn; i++)
             list.Add(Instantiate(prefab, GetNewSpawnPosition(), Quaternion.identity));
+        return list;
     }
     public void GenerateHumans()
     {
-        GenerateComponent(humanPrefab, humans, startingHumans);
+        humans = GenerateObject(humanPrefab, startingHumans);
     }
     public void GenerateFood()
     {
-        GenerateComponent(foodPrefab, foods, foodPerDay);
+        foods = GenerateObject(foodPrefab, foodPerDay);
     }
     public Vector3 GetNewSpawnPosition()
     {
