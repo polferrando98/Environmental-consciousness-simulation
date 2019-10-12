@@ -40,7 +40,7 @@ public class Tree : Entity
         GenFood();
         float diceRoll = Random.Range(0f, 1f);
         dead = diceRoll < GetDeathChance();
-        return Reproduce();
+        return Reproduce(gm.treePrefab);
 
     }
     void GenFood()

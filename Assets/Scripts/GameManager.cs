@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject humanPrefab;
     public GameObject foodPrefab;
-    
+    public GameObject treePrefab;
+
     public bool activateTime = false;
     public int foodPerDay = 5;
     //Change for actual world limits

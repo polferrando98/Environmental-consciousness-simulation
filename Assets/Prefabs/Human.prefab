@@ -31,7 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 827202611519348326}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7948268833174710366
 MeshFilter:
@@ -120,8 +120,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4700283030223794724}
   - {fileID: 7633153852478241169}
+  - {fileID: 4700283030223794724}
   - {fileID: 6612433481702585886}
   m_Father: {fileID: 6550442652244577943}
   m_RootOrder: 0
@@ -267,7 +267,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 827202611519348326}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1095128779104296781
 MeshFilter:
@@ -376,4 +376,9 @@ MonoBehaviour:
   daysLived: 0
   reproductionChance: 1
   maxEnergy: 14
+  bornColor: {r: 0.43867922, g: 0.76933557, b: 1, a: 0}
+  normalColor: {r: 0, g: 0.20292808, b: 0.6037736, a: 0}
+  deadColor: {r: 0, g: 0.07871652, b: 0.13207549, a: 0}
+  bodyRenderer: {fileID: 5088155807433882060}
   foodLimit: 2
+  moving: 0
