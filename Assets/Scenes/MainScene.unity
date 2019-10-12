@@ -221,6 +221,8 @@ GameObject:
   m_Component:
   - component: {fileID: 410549980}
   - component: {fileID: 410549979}
+  - component: {fileID: 410549982}
+  - component: {fileID: 410549981}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -240,12 +242,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 895af5621cf892040a9ec13479f866b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  humans_manager: {fileID: 0}
+  cycle_manager: {fileID: 0}
   humanPrefab: {fileID: 6550442652244577938, guid: ba14e05c0797a41429ce7c0260aefb34,
     type: 3}
   foodPrefab: {fileID: 8312782749609201770, guid: c7ffff9bb46cd9d4fb5a320110cb6cfe,
     type: 3}
   foods: []
-  humans: []
   activateTime: 0
   foodPerDay: 20
   startingHumans: 5
@@ -264,6 +267,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &410549981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410549978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 663fbbbfea6654c6fa24dc96e77ea64e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time_between_cycles: 3
+--- !u!114 &410549982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410549978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79241d000f5e243edb383f869d5b6ba5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  humans: []
+  uman_prefav: {fileID: 6550442652244577938, guid: ba14e05c0797a41429ce7c0260aefb34,
+    type: 3}
 --- !u!1 &1932554584
 GameObject:
   m_ObjectHideFlags: 0

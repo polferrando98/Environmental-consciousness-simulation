@@ -12,7 +12,7 @@ public class Human : Entity
     // Start is called before the first frame update
     void Start()
     {
-        gm = GameObject.FindObjectOfType<GameManager>();
+        gm = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -28,10 +28,10 @@ public class Human : Entity
             foodCount += FindFood(foods);
 
         //Daytime actions
-        if (foodCount == 0)
-            gm.DestroyHuman(gameObject);
-        else if (foodCount > 1)
-            return Reproduce();
+        //if (foodCount == 0)
+        //    gm.DestroyHuman(gameObject);
+        //else if (foodCount > 1)
+        //    return Reproduce();
 
         return null;
 

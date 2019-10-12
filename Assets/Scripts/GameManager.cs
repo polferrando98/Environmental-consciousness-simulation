@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public HumansManager humans_manager;
+    public CycleManager cycle_manager;
+
+
     public GameObject humanPrefab;
     public GameObject foodPrefab;
     public List<GameObject> foods;
-    public List<GameObject> humans;
+
     
     public bool activateTime = false;
     public int foodPerDay = 5;
@@ -16,11 +20,19 @@ public class GameManager : MonoBehaviour
     //Change for actual world limits
     public Vector4 worldLimits;
 
+    void Awake()
+    {
+        cycle_manager = GetComponent<CycleManager>();
+        humans_manager = GetComponent<HumansManager>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         activateTime = false;
         GenerateHumans();
+
+
 
     }
 
@@ -33,10 +45,6 @@ public class GameManager : MonoBehaviour
 
             System.Threading.Thread.Sleep(2000);
             //Human actions
-            foreach (GameObject human in humans)
-            {
-                human.GetComponent<Human>().PassDay(foods);
-            }
             activateTime = false;
         }   
     }
@@ -48,7 +56,7 @@ public class GameManager : MonoBehaviour
     }
     public void GenerateHumans()
     {
-        GenerateComponent(humanPrefab, humans, startingHumans);
+        //GenerateComponent(humanPrefab, humans, startingHumans);
     }
     public void GenerateFood()
     {
@@ -64,10 +72,5 @@ public class GameManager : MonoBehaviour
     {
         foods.Remove(food);
         Destroy(food);
-    }
-    public void DestroyHuman(GameObject human)
-    {
-        humans.Remove(human);
-        Destroy(human);
     }
 }
