@@ -15,10 +15,15 @@ public class Human : Entity
 
     private int food_count;
 
+    bool moving;
+
     Food food_found;
+
+
     // Start is called before the first frame update
     void Awake()
     {
+        moving = false;
         gm = FindObjectOfType<GameManager>();
 
             
@@ -50,17 +55,13 @@ public class Human : Entity
                 food_count++;
 
 
-
+                moving = true;
             }
         }
 
         //StartCoroutine(GoToFood());
 
-        //Daytime actions
-        if (food_count == 0)
-            dead = true;
-        else if (food_count > 1)
-            return Reproduce();
+
 
         return null;
 
@@ -95,7 +96,7 @@ public class Human : Entity
         //TODO: Unimplented
     }
 
-    public void TimeToEat()
+    public GameObject TimeToEat()
     {
         if (gameObject && food_found)
         {
@@ -103,6 +104,14 @@ public class Human : Entity
             EatFood();
             gm.food_manager.DestroyFood(food_found.gameObject);
         }
+
+        //Daytime actions
+        if (food_count == 0)
+            dead = true;
+        else if (food_count > 1)
+            return Reproduce();
+
+        return null;
 
     }
 

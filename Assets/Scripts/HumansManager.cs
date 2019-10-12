@@ -39,21 +39,17 @@ public class HumansManager : MonoBehaviour
     {
         int nHumans = humans.Count;
 
-        List<GameObject> newHumans = new List<GameObject>();
+        
         for (int i = 0; i < humans.Count; i++)
         {
-            GameObject newHuman = humans[i].GetComponent<Human>().ProcessDay();
+            humans[i].GetComponent<Human>().ProcessDay();
             //If it reproduced we store the new human
-            if (newHuman)
-            {
-                newHumans.Add(newHuman);
-                newHuman.transform.SetParent(humans_container.transform);
-            }
+
         }
 
         //Kill dead humans        print("DAY X: Started with " + nHumans+"humans, "+ (nHumans - humans.Count) + " died, "+ newHumans.Count + " born");
         //Store new humans in the same vector as before
-        humans.AddRange(newHumans);
+        
         
         
     }
@@ -64,13 +60,22 @@ public class HumansManager : MonoBehaviour
 
     void TimeToEat()
     {
+        List<GameObject> newHumans = new List<GameObject>();
         for (int i = 0; i < humans.Count; i++)
         {
-            humans[i].GetComponent<Human>().TimeToEat();
+            GameObject newHuman = humans[i].GetComponent<Human>().TimeToEat();
+
+            if (newHuman)
+            {
+                newHumans.Add(newHuman);
+                newHuman.transform.SetParent(humans_container.transform);
+            }
         }
 
 
         humans = humans.Where(human => !human.GetComponent<Human>().Kill()).ToList();
+
+        humans.AddRange(newHumans);
 
     }
 

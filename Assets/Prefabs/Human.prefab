@@ -371,10 +371,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d13b1d481f59e4e853e722967066b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-
-  reproductionRange: 5
-
+  reproductionRange: {x: 2, y: 8}
   dead: 0
-  movementsPerDay: 2
+  daysLived: 0
+  reproductionChance: 1
+  movementsPerDay: 1
   visionRange: 7
   energy: 0
