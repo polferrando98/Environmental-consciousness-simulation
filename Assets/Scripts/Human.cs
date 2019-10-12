@@ -12,7 +12,6 @@ public class Human : Entity
     [SerializeField]
     float energy;
     GameManager gm;
-    public bool dead = false;
     // Start is called before the first frame update
     void Awake()
     {
@@ -24,16 +23,8 @@ public class Human : Entity
     {
         
     }
-    public bool Kill()
-    {
-        if (dead)
-        {
-            Destroy(gameObject);
-            return true;
-        }
-        return false;
-    }
-    public override GameObject PassDay()
+    
+    public override GameObject ProcessDay()
     {
         List<GameObject> foods = gm.GetFoods();
         //Daytime food hunt (just eat food for now)

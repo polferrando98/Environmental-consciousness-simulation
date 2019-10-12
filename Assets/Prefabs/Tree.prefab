@@ -181,7 +181,7 @@ Transform:
   m_GameObject: {fileID: 6217218942792331378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 9214621114501912354}
   - {fileID: 7813925730106759585}
@@ -221,6 +221,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd27a79c2878a6458da8231b8805088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reproductionRange: 15
+  dead: 0
+  foodDropRange: 2
 --- !u!1 &6946495528245129046
 GameObject:
   m_ObjectHideFlags: 0

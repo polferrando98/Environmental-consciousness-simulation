@@ -27,25 +27,28 @@ public class HumansManager : MonoBehaviour
     {
 
 
-        gm.cycle_manager.OnCycleMiddle += PassDay;
+        gm.cycle_manager.OnCycleMiddle += ProcessDay;
         
     }
-    void PassDay()
+    void ProcessDay()
     {
         int nHumans = humans.Count;
 
         List<GameObject> newHumans = new List<GameObject>();
         for (int i = 0; i < humans.Count; i++)
         {
-            GameObject newHuman = humans[i].GetComponent<Human>().PassDay();
+            GameObject newHuman = humans[i].GetComponent<Human>().ProcessDay();
+            //If it reproduced we store the new human
             if (newHuman)
             {
                 newHumans.Add(newHuman);
                 newHuman.transform.SetParent(humans_container.transform);
             }
         }
+        //Kill dead humans
         humans = humans.Where(human => !human.GetComponent<Human>().Kill()).ToList();
         print("DAY X: Started with " + nHumans+"humans, "+ (nHumans - humans.Count) + " died, "+ newHumans.Count + " born");
+        //Store new humans in the same vector as before
         humans.AddRange(newHumans);
         
         

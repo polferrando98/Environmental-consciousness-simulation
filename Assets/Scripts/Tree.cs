@@ -5,7 +5,7 @@ using UnityEngine;
 public class Tree : Entity
 {
     GameManager gm;
-    public float foodDropRange = 2f;
+    [SerializeField] private float foodDropRange = 2f;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +17,7 @@ public class Tree : Entity
     {
         
     }
-    public override GameObject PassDay()
+    public override GameObject ProcessDay()
     {
         GenFood();
         return null;
