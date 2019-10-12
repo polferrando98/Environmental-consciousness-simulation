@@ -38,23 +38,26 @@ public class Human : Entity
     void Update()
     {
         if (moving)
-        { 
-                float speed = 0.5f;
+        {
+            float speed = 0.5f;
 
-                Vector3 direction = target_foods[0].transform.position - gameObject.transform.position ;
+            float arriving_radius = 3;
 
-                direction.y = 0;
+            Vector3 distance = target_foods[0].transform.position - gameObject.transform.position;
 
-                direction = direction.normalized;
+            distance.y = 0;
 
-                transform.position += direction * speed;
+            Vector3 direction = distance.normalized;
+
+
+            transform.position += direction * speed;
 
         }
 
     }
 
 
-    
+
 
     public override GameObject ProcessDay()
     {
