@@ -40,6 +40,10 @@ public class GameManager : MonoBehaviour
     {
         return food_manager.foods;
     }
+    public Transform GetFoodContainer()
+    {
+        return food_manager.foods_container.transform;
+    }
     public Collider GetCollider()
     {
         return boundaries; 

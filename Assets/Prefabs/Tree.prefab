@@ -223,7 +223,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reproductionRange: 15
   dead: 0
-  foodDropRange: 2
+  maxFoodGeneration: 4
+  chanceToGenerate: 1
+  foodDropRange: {x: 4, y: 10}
 --- !u!1 &6946495528245129046
 GameObject:
   m_ObjectHideFlags: 0

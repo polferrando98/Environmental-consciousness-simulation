@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
-    [SerializeField] protected float reproductionRange = 5f;
+    [SerializeField] protected Vector2 reproductionRange = new Vector2(2f, 8f);
     [SerializeField] protected bool dead = false;
     // Start is called before the first frame update
     void Start()
@@ -21,8 +21,9 @@ public abstract class Entity : MonoBehaviour
     public abstract GameObject ProcessDay();
     protected GameObject Reproduce()
     {
-        float x = Random.Range(-reproductionRange, reproductionRange);
-        float z = Random.Range(-reproductionRange, reproductionRange);
+        
+        float x = Random.Range(reproductionRange[0], reproductionRange[1]);
+        float z = Random.Range(reproductionRange[0], reproductionRange[1]);
         return Instantiate(gameObject, new Vector3(x, 0, z), Quaternion.identity);
     }
     public bool Kill()
