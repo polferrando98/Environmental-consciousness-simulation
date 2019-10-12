@@ -66,9 +66,11 @@ public class Human : Entity
         //GOTO Food
         gameObject.transform.position = food.transform.position;
 
-        
+        gm.contamination+=0.01f;
+        if (gm.contamination > 1f)
+            gm.contamination = 1f;
 
-        energy++;
+        Graph.updateContaminationData(gm.contamination);
         return 1;
     }
     void PlantTree()

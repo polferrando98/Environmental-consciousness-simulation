@@ -33,6 +33,7 @@ public class HumansManager : MonoBehaviour
     void ProcessDay()
     {
         int nHumans = humans.Count;
+        Graph.updateHumanData(nHumans);
 
         List<GameObject> newHumans = new List<GameObject>();
         for (int i = 0; i < humans.Count; i++)
@@ -47,7 +48,7 @@ public class HumansManager : MonoBehaviour
         }
         //Kill dead humans
         humans = humans.Where(human => !human.GetComponent<Human>().Kill()).ToList();
-        print("DAY X: Started with " + nHumans+"humans, "+ (nHumans - humans.Count) + " died, "+ newHumans.Count + " born");
+        //print("DAY X: Started with " + nHumans+"humans, "+ (nHumans - humans.Count) + " died, "+ newHumans.Count + " born");
         //Store new humans in the same vector as before
         humans.AddRange(newHumans);
         

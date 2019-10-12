@@ -28,7 +28,6 @@ public class FoodManager : MonoBehaviour
     void Start()
     {
 
-
         gm.cycle_manager.OnCycleBegin += HandleCycleBegin;
         gm.cycle_manager.OnCycleEnd += HandleCycleEnd;
     }
@@ -58,12 +57,20 @@ public class FoodManager : MonoBehaviour
     }
     void ProcessDay()
     {
+        int nTrees = trees.Count;
+        Graph.updateTreeData(nTrees);
+
+        //Reduce contamination
+        gm.contamination -= 0.001f * nTrees;
+        if (gm.contamination < 0f)
+            gm.contamination = 0f;
+
+        //print("Contamination: " + gm.contamination);
         //Destroy old food
         for (int i = 0; i < foods.Count; i++)
             Destroy(foods[i]);
         foods.Clear();
 
-        int nTrees = trees.Count;
 
         List<GameObject> newTrees = new List<GameObject>();
         for (int i = 0; i < trees.Count; i++)
