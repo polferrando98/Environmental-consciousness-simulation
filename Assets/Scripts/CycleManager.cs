@@ -53,8 +53,6 @@ public class CycleManager : MonoBehaviour
         // suspend execution for 5 seconds
         while (true)
         {
-            print("new_cycle");
-
             yield return new WaitForSeconds(time_between_cycles);
             OnCycleBegin?.Invoke();
             

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
-
+    [SerializeField]
+    private float reproductionRange = 5f;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +18,11 @@ public abstract class Entity : MonoBehaviour
 
     }
     //maybe not abstract
-    public abstract void PassDay();
-    protected abstract GameObject Reproduce();
+    public abstract GameObject PassDay();
+    protected GameObject Reproduce()
+    {
+        float x = Random.Range(-reproductionRange, reproductionRange);
+        float z = Random.Range(-reproductionRange, reproductionRange);
+        return Instantiate(gameObject, new Vector3(x, 0, z), Quaternion.identity);
+    }
 }

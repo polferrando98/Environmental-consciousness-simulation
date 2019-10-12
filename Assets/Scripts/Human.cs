@@ -8,11 +8,11 @@ public class Human : Entity
     [SerializeField]
     int movementsPerDay = 1;
     [SerializeField]
-    float visionRange = 4f;
+    float visionRange;
     [SerializeField]
     float energy;
     GameManager gm;
-    bool dead = false;
+    public bool dead = false;
     // Start is called before the first frame update
     void Awake()
     {
@@ -24,7 +24,16 @@ public class Human : Entity
     {
         
     }
-    public override void PassDay()
+    public bool Kill()
+    {
+        if (dead)
+        {
+            Destroy(gameObject);
+            return true;
+        }
+        return false;
+    }
+    public override GameObject PassDay()
     {
         List<GameObject> foods = gm.GetFoods();
         //Daytime food hunt (just eat food for now)
@@ -41,8 +50,10 @@ public class Human : Entity
         //Daytime actions
         if (foodCount == 0)
             dead = true;
-        //else if (foodCount > 1)
-        //    return Reproduce();
+        else if (foodCount > 1)
+            return Reproduce();
+
+        return null;
 
     }
     GameObject FindFood(List<GameObject> foods)
@@ -55,7 +66,7 @@ public class Human : Entity
                 return food;
             }
         }
-        visionRange = visionRange * 2;
+        visionRange = visionRange * 1.2f;
         return null;
 
     }
@@ -72,10 +83,5 @@ public class Human : Entity
     void PlantTree()
     {
         //TODO: Unimplented
-    }
-    protected override GameObject Reproduce()
-    {
-        //TODO: Change children position so its not in the same pos as parent
-        return Instantiate(gm.humanPrefab);
     }
 }

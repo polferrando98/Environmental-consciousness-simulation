@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,18 +32,26 @@ public class HumansManager : MonoBehaviour
     }
     void PassDay()
     {
+        int nHumans = humans.Count;
 
-
+        List<GameObject> newHumans = new List<GameObject>();
         for (int i = 0; i < humans.Count; i++)
         {
-            humans[i].GetComponent<Human>().PassDay();
+            GameObject newHuman = humans[i].GetComponent<Human>().PassDay();
+            if (newHuman)
+            {
+                newHumans.Add(newHuman);
+                newHuman.transform.SetParent(humans_container.transform);
+            }
         }
-
-        //humans[0].GetComponent<Human>().PassDay();
+        humans = humans.Where(human => !human.GetComponent<Human>().Kill()).ToList();
+        print("DAY X: Started with " + nHumans+"humans, "+ (nHumans - humans.Count) + " died, "+ newHumans.Count + " born");
+        humans.AddRange(newHumans);
+        
+        
     }
     void HandleStart()
     {
-        print("Humans spawned");
         GenerateAllHumans();
     }
     int NHumansToSpawn()

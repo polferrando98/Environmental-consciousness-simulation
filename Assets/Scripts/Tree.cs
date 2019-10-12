@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Tree : Entity
 {
-    public GameManager gm;
-    public float reproductionRange = 5f;
+    GameManager gm;
     public float foodDropRange = 2f;
     // Start is called before the first frame update
     void Start()
@@ -18,9 +17,10 @@ public class Tree : Entity
     {
         
     }
-    public override void PassDay()
+    public override GameObject PassDay()
     {
         GenFood();
+        return null;
         
     }
     void GenFood()
@@ -28,12 +28,5 @@ public class Tree : Entity
         float x = Random.Range(-foodDropRange, foodDropRange);
         float z = Random.Range(-foodDropRange, foodDropRange);
         //gm.foods.Add(Instantiate
-    }
-
-    protected override GameObject Reproduce()
-    {
-        float x = Random.Range(-reproductionRange, reproductionRange);
-        float z = Random.Range(-reproductionRange, reproductionRange);
-        return Instantiate(gameObject, new Vector3(x, 0, z), Quaternion.identity);
     }
 }

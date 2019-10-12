@@ -41,6 +41,12 @@ public class FoodManager : MonoBehaviour
     }
     void GenerateAllFood()
     {
+        //Destroy old food
+        for (int i = 0; i < foods.Count; i++)
+            Destroy(foods[i]);
+        foods.Clear();
+
+        //Generate new food for the day
         int foods_to_spawn = NFoodsToSpawn();
 
         for (int i = 0; i < foods_to_spawn; i++)

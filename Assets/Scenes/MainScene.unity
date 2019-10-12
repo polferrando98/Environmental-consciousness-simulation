@@ -207,7 +207,7 @@ Transform:
   m_GameObject: {fileID: 265898310}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -2, z: 0}
-  m_LocalScale: {x: 50, y: 1, z: 50}
+  m_LocalScale: {x: 8, y: 1, z: 8}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -343,7 +343,7 @@ MonoBehaviour:
   foodPrefab: {fileID: 8312782749609201770, guid: c7ffff9bb46cd9d4fb5a320110cb6cfe,
     type: 3}
   activateTime: 0
-  foodPerDay: 20
+  foodPerDay: 25
 --- !u!4 &410549980
 Transform:
   m_ObjectHideFlags: 0
@@ -370,7 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 663fbbbfea6654c6fa24dc96e77ea64e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time_between_cycles: 1.5
+  time_between_cycles: 0.5
 --- !u!114 &410549982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,7 +387,7 @@ MonoBehaviour:
   human_prefab: {fileID: 6550442652244577938, guid: ba14e05c0797a41429ce7c0260aefb34,
     type: 3}
   humans_container: {fileID: 843588072}
-  starting_humans: 10
+  starting_humans: 5
 --- !u!114 &410549983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,7 +404,7 @@ MonoBehaviour:
   food_prefab: {fileID: 8312782749609201770, guid: c7ffff9bb46cd9d4fb5a320110cb6cfe,
     type: 3}
   foods_container: {fileID: 977690877}
-  default_n_foods: 10
+  default_n_foods: 40
 --- !u!1 &843588072
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,7 +463,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 50, y: 1, z: 50}
+  m_Size: {x: 70, y: 1, z: 70}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &874438082
 Transform:
@@ -562,7 +562,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 25.1
+  orthographic size: 40
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
