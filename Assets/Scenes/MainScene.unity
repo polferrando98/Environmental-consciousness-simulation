@@ -239,8 +239,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 9
   m_Type: 1
-  m_Color: {r: 1, g: 0.9736437, b: 0.5801887, a: 1}
-  m_Intensity: 2.16
+  m_Color: {r: 1, g: 0.9878972, b: 0.8160377, a: 1}
+  m_Intensity: 1.94
   m_Range: 451.8
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -342,6 +342,8 @@ MonoBehaviour:
     type: 3}
   foodPrefab: {fileID: 8312782749609201770, guid: c7ffff9bb46cd9d4fb5a320110cb6cfe,
     type: 3}
+  treePrefab: {fileID: 6217218942792331378, guid: e3db7dd814de63a49a344ba00915af7b,
+    type: 3}
   activateTime: 0
   foodPerDay: 25
   contamination: 0
@@ -389,6 +391,7 @@ MonoBehaviour:
     type: 3}
   humans_container: {fileID: 843588072}
   starting_humans: 5
+  time_to_eat: 0
 --- !u!114 &410549983
 MonoBehaviour:
   m_ObjectHideFlags: 0
