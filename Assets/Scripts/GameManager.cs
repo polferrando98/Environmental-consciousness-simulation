@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        activateTime = false;
         GenerateHumans();
 
 
@@ -39,28 +38,22 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (activateTime)
-        {
-            GenerateFood();
-
-            System.Threading.Thread.Sleep(2000);
-            //Human actions
-            activateTime = false;
-        }   
+  
     }
-    public void GenerateComponent(GameObject prefab, List<GameObject> list, int n_spawn)
+    public List<GameObject> GenerateObject(GameObject prefab, int n_spawn)
     {
-        list = new List<GameObject>(n_spawn);
+        List<GameObject> list = new List<GameObject>(n_spawn);
         for (int i = 0; i < n_spawn; i++)
             list.Add(Instantiate(prefab, GetNewSpawnPosition(), Quaternion.identity));
+        return list;
     }
     public void GenerateHumans()
     {
-        //GenerateComponent(humanPrefab, humans, startingHumans);
+
     }
     public void GenerateFood()
     {
-        GenerateComponent(foodPrefab, foods, foodPerDay);
+        foods = GenerateObject(foodPrefab, foodPerDay);
     }
     public Vector3 GetNewSpawnPosition()
     {

@@ -6,7 +6,7 @@ using UnityEngine;
 public class Human : Entity
 {
     const int movementsPerDay = 2;
-    float visionRange = 5f;
+    float visionRange = 4f;
     public float energy;
     public GameManager gm;
     // Start is called before the first frame update
@@ -20,8 +20,9 @@ public class Human : Entity
     {
         
     }
-    public Entity PassDay(List<GameObject> foods)
+    public override void PassDay()
     {
+        List<GameObject> foods = gm.foods;
         //Daytime food hunt (just eat food for now)
         int foodCount = 0;
         for (int i = 0; i < movementsPerDay; i++)
@@ -49,7 +50,11 @@ public class Human : Entity
     }
     byte EatFood(GameObject food)
     {
-        //GameManager.DestroyFood(f);
+        gameObject.transform.position = food.transform.position;
+
+        gm.DestroyFood(food);
+        //GOTO Food
+
         energy++;
         return 1;
     }
@@ -57,8 +62,9 @@ public class Human : Entity
     {
         //TODO: Unimplented
     }
-    protected override Entity Reproduce()
+    protected override GameObject Reproduce()
     {
-        return new Human();
+        //TODO: Change children position so its not in the same pos as parent
+        return Instantiate(gm.humanPrefab);
     }
 }

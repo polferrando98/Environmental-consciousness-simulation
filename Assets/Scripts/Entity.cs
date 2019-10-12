@@ -16,5 +16,6 @@ public abstract class Entity : MonoBehaviour
 
     }
     //maybe not abstract
-    protected abstract Entity Reproduce();
+    public abstract void PassDay();
+    protected abstract GameObject Reproduce();
 }
