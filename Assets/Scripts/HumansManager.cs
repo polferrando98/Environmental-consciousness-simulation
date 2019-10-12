@@ -12,13 +12,14 @@ public class HumansManager : MonoBehaviour
     public GameObject human_prefab;
 
     public GameObject humans_container;
-    public int starting_humans = 10;
+
+    int starting_humans;
 
     // Start is called before the first frame update
     void Awake()
     {
         gm = FindObjectOfType<GameManager>();
-
+        starting_humans = gm.parameters.startingHumans;
         gm.cycle_manager.OnStart += HandleStart;
 
         humans = new List<GameObject>();

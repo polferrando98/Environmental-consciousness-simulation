@@ -5,24 +5,21 @@ using UnityEngine;
 
 public class Human : Entity
 {
-    [SerializeField]
     float maxEnergy;
     float energy;
     GameManager gm;
     //How likely it to give up a descendent for a tree
-    [SerializeField] float altruism;
+    float altruism;
     [SerializeField] Vector2 plantRange;
     [SerializeField] Color bornColor;
     [SerializeField] Color normalColor;
     [SerializeField] Color deadColor;
     [SerializeField] MeshRenderer bodyRenderer;
-    [SerializeField] float maxDeathChance;
-    [SerializeField] int foodLimit = 2;
-    private int n_obtainable_food;
-    private int next_food_index = 0;
-    //float total_distance_travelled = 0;
-
-    public bool moving;
+    float maxDeathChance;
+    int foodLimit;
+    int n_obtainable_food;
+    int next_food_index = 0;
+    bool moving;
 
     List<GameObject> target_foods;
 
@@ -31,8 +28,12 @@ public class Human : Entity
     void Awake()
     {
         moving = false;
-        
         gm = FindObjectOfType<GameManager>();
+        altruism = gm.parameters.humanAltruism;
+        maxEnergy = gm.parameters.humanMaxEnergy;
+        maxDeathChance = gm.parameters.humanMaxDeathChance;
+        reproductionChance = gm.parameters.humanReproductionChance;
+        foodLimit = gm.parameters.humanFoodLimit;
     }
 
     private void Start()

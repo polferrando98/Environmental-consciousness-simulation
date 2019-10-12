@@ -312,6 +312,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 410549980}
+  - component: {fileID: 410549984}
   - component: {fileID: 410549979}
   - component: {fileID: 410549982}
   - component: {fileID: 410549981}
@@ -344,8 +345,7 @@ MonoBehaviour:
     type: 3}
   treePrefab: {fileID: 6217218942792331378, guid: e3db7dd814de63a49a344ba00915af7b,
     type: 3}
-  activateTime: 0
-  foodPerDay: 25
+  parameters: {fileID: 0}
   contamination: 0
 --- !u!4 &410549980
 Transform:
@@ -373,7 +373,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 663fbbbfea6654c6fa24dc96e77ea64e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time_between_cycles: 0.5
   time_to_move: 2
 --- !u!114 &410549982
 MonoBehaviour:
@@ -391,7 +390,6 @@ MonoBehaviour:
   human_prefab: {fileID: 6550442652244577938, guid: ba14e05c0797a41429ce7c0260aefb34,
     type: 3}
   humans_container: {fileID: 843588072}
-  starting_humans: 5
 --- !u!114 &410549983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,13 +406,33 @@ MonoBehaviour:
   trees: []
   food_prefab: {fileID: 8312782749609201770, guid: c7ffff9bb46cd9d4fb5a320110cb6cfe,
     type: 3}
-  tree_prefab: {fileID: 6217218942792331378, guid: e3db7dd814de63a49a344ba00915af7b,
-    type: 3}
-  startingTrees: 10
-  wasteGeneratedByEating: 0.01
-  wasteAbsorbedByTrees: 0.01
   trees_container: {fileID: 1184784518}
   foods_container: {fileID: 977690877}
+--- !u!114 &410549984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410549978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70fb039fcd49ad943824fcfe01222bfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  treeMaxFoodGeneration: 2
+  treeReproductionChance: 0.1
+  humanAltruism: 0.5
+  humanMaxEnergy: 14
+  humanMaxDeathChance: 0.5
+  humanFoodLimit: 2
+  humanReproductionChance: 1
+  startingHumans: 8
+  timeBetweenCycles: 0.5
+  timeToMove: 2
+  startingTrees: 14
+  wasteGeneratedByEating: 0.01
+  wasteAbsorbedByTrees: 0.01
 --- !u!1 &773431117
 GameObject:
   m_ObjectHideFlags: 0

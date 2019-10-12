@@ -10,10 +10,9 @@ public class FoodManager : MonoBehaviour
     public List<GameObject> trees;
     public GameObject food_prefab;
 
-    [SerializeField] GameObject tree_prefab;
-    [SerializeField] int startingTrees;
-    [SerializeField] float wasteGeneratedByEating;
-    [SerializeField] float wasteAbsorbedByTrees;
+    int startingTrees;
+    float wasteGeneratedByEating;
+    float wasteAbsorbedByTrees;
     public GameObject trees_container;
     public GameObject foods_container;
 
@@ -24,6 +23,9 @@ public class FoodManager : MonoBehaviour
         foods = new List<GameObject>();
         trees = new List<GameObject>();
         gm.cycle_manager.OnStart += HandleStart;
+        startingTrees = gm.parameters.startingTrees;
+        wasteAbsorbedByTrees = gm.parameters.wasteAbsorbedByTrees;
+        wasteGeneratedByEating = gm.parameters.wasteGeneratedByEating;
     }
 
     void Start()
@@ -47,7 +49,7 @@ public class FoodManager : MonoBehaviour
     }
     GameObject CreateTree()
     {
-        GameObject newTree = Instantiate(tree_prefab, trees_container.transform);
+        GameObject newTree = Instantiate(gm.treePrefab, trees_container.transform);
         newTree.transform.position = gm.GetNewSpawnPosition();
         newTree.transform.Rotate(0f, Random.Range(0f, 360f), 0f);
         return newTree;

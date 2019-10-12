@@ -13,15 +13,15 @@ public class GameManager : MonoBehaviour
     public GameObject foodPrefab;
     public GameObject treePrefab;
 
-    public bool activateTime = false;
-    public int foodPerDay = 5;
-    //Change for actual world limits
+
+    public Parameters parameters;
     private Collider boundaries;
 
     public float contamination = 0;
 
     void Awake()
     {
+        parameters = GetComponent<Parameters>();
         boundaries = GameObject.FindGameObjectsWithTag("Boundary")[0].GetComponent<Collider>();
         cycle_manager = GetComponent<CycleManager>();
         humans_manager = GetComponent<HumansManager>();

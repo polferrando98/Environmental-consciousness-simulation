@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class Tree : Entity
 {
-    [SerializeField] private int maxFoodGeneration = 4;
-    [SerializeField] private float foodGenChance = 1f;
-    GameManager gm;
+    int maxFoodGeneration;
+    float foodGenChance;
     [SerializeField] private Vector2 foodDropRange = new Vector2(1f,2f);
-    
+
+
+    GameManager gm;
     //Offset so food doesn't spawn on our tree
 
     // Start is called before the first frame update
     void Start()
     {
         gm = GameObject.FindObjectOfType<GameManager>();
+        reproductionChance = gm.parameters.treeReproductionChance;
+        maxFoodGeneration = gm.parameters.treeMaxFoodGeneration;
     }
   
     public float GetDeathChance()

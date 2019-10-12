@@ -19,7 +19,6 @@ public class CycleManager : MonoBehaviour
     public delegate void StartEvent();
     public event StartEvent OnStart;
 
-    [SerializeField]
     private float time_between_cycles;
     public float time_to_move;
 
@@ -29,7 +28,8 @@ public class CycleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        time_between_cycles= GetComponent<Parameters>().timeBetweenCycles;
+        time_to_move = GetComponent<Parameters>().timeToMove;
         first_update = true;
         is_mid_cycle = false;
     }
