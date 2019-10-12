@@ -129,16 +129,14 @@ public class FoodManager : MonoBehaviour
 
     public void DestroyFood(GameObject food)
     {
+        //Increment contamination
+        gm.contamination += 0.01f;
+        if (gm.contamination > 1f)
+            gm.contamination = 1f;
+
+        Graph.updateContaminationData(gm.contamination);
+
         foods.Remove(food);
         Destroy(food);
-
-        /*foreach (GameObject food_go in foods)
-        {
-            if (food_go.GetComponent<Food>() == food)
-            {
-                foods.Remove(food_go);
-                Destroy(food_go);
-            }
-        }*/
     }
 }

@@ -15,7 +15,8 @@ public class Human : Entity
     [SerializeField] MeshRenderer bodyRenderer;
     [SerializeField] int foodLimit = 2;
     private int n_obtainable_food;
-    float total_distance_travelled = 0;
+    private int next_food_index = 0;
+    //float total_distance_travelled = 0;
 
     public bool moving;
 
@@ -40,51 +41,36 @@ public class Human : Entity
     {
         if (moving)
         {
-
-
-            float arriving_radius = 0.5f;
-
+            
             float speed = maxEnergy * Time.deltaTime / (gm.cycle_manager.time_to_move) ;
+            //Minimum distance at which we consider we arrived at a target
+            float epsilon = 0.04f;
 
-            for (int i = 0; i < target_foods.Count; i++) {
+            //If the next food hasn't been destroyed by another human we go for it
+            if (target_foods[next_food_index]!=null)
+            {
 
-                Vector3 distance = target_foods[i].transform.position - gameObject.transform.position;
+                Vector3 distance = target_foods[next_food_index].transform.position - gameObject.transform.position;
                 distance.y = 0;
-
-
-                
-
 
                 Vector3 direction = distance.normalized;
 
-                if (distance.magnitude < arriving_radius)
-                {
-                    float radius_ratio = (1 - (arriving_radius * distance.magnitude));
-                    float arriving_speed = radius_ratio * speed;
+                transform.position += direction * speed;
 
-                    if (arriving_speed > distance.magnitude) arriving_speed = distance.magnitude;
-
-                    if (total_distance_travelled < maxEnergy)
-                    {
-                        transform.position += direction * arriving_speed;
-                        total_distance_travelled += arriving_speed;
-                    }
-                }
-                else
+                //If we arrived at our target food we eat and go to the next one
+                if (Mathf.Abs(distance.x) < epsilon)
                 {
-                    if (total_distance_travelled < energy)
-                    {
-                        transform.position += direction * speed;
-                        total_distance_travelled += speed;
-                    }
+                    gm.food_manager.DestroyFood(target_foods[next_food_index]);
+                    next_food_index++;
                 }
+                //If there are no targets left we stop moving
+                if (next_food_index >= target_foods.Count)
+                    moving = false;
             }
+            else
+                moving = false;
 
-        }else
-        {
-            total_distance_travelled = 0;
         }
-
     }
 
 
@@ -106,10 +92,8 @@ public class Human : Entity
         {
             //MOVE TOWARDS FOOD
             //StartCoroutine(GoToFood());
-
-            
-
             moving = true;
+            next_food_index = 0;
         }
 
         daysLived++;
@@ -153,7 +137,6 @@ public class Human : Entity
             referenceObject = closestFood.transform.position;
 
         } while (energyLeft > 0 && n_obtainable_food < foodLimit);
-        moving = true;
     }
     void PlantTree()
     {
@@ -162,18 +145,6 @@ public class Human : Entity
 
     public GameObject TimeToEat()
     {
-        moving = false;
-        for(int i = 0; i<n_obtainable_food; i++)
-        {
-            gm.food_manager.DestroyFood(target_foods[i]);
-
-            gm.contamination += 0.01f;
-            if (gm.contamination > 1f)
-                gm.contamination = 1f;
-
-            Graph.updateContaminationData(gm.contamination);
-        }
-
         //Daytime actions
         if (n_obtainable_food == 0)
         {
