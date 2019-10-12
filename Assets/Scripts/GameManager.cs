@@ -47,6 +47,10 @@ public class GameManager : MonoBehaviour
     {
         return food_manager.foods_container.transform;
     }
+    public Transform GetTreeContainer()
+    {
+        return food_manager.trees_container.transform;
+    }
     public Collider GetCollider()
     {
         return boundaries; 

@@ -392,7 +392,6 @@ MonoBehaviour:
     type: 3}
   humans_container: {fileID: 843588072}
   starting_humans: 5
-  time_to_eat: 0
 --- !u!114 &410549983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,9 +411,10 @@ MonoBehaviour:
   tree_prefab: {fileID: 6217218942792331378, guid: e3db7dd814de63a49a344ba00915af7b,
     type: 3}
   startingTrees: 7
+  wasteGeneratedByEating: 0.01
+  wasteAbsorbedByTrees: 0.013
   trees_container: {fileID: 1184784518}
   foods_container: {fileID: 977690877}
-  default_n_foods: 40
 --- !u!1 &773431117
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,9 @@ public class Human : Entity
     float maxEnergy;
     float energy;
     GameManager gm;
+    //How likely it to give up a descendent for a tree
+    [SerializeField] float altruism;
+    [SerializeField] Vector2 plantRange;
     [SerializeField] Color bornColor;
     [SerializeField] Color normalColor;
     [SerializeField] Color deadColor;
@@ -72,9 +75,6 @@ public class Human : Entity
 
         }
     }
-
-
-
 
     public override GameObject ProcessDay()
     {
@@ -145,7 +145,7 @@ public class Human : Entity
     }
     void PlantTree()
     {
-        //TODO: Unimplented
+        Utils.SpawnObjectAroundObject(transform.position, gm.treePrefab, plantRange[0], plantRange[1], gm.GetTreeContainer(), true);
     }
 
     public GameObject TimeToEat()
@@ -156,8 +156,13 @@ public class Human : Entity
             dead = true;
             //bodyRenderer.material.SetColor("_Color", deadColor);
         }
-        if (n_obtainable_food > 1)
-            return Reproduce(gm.humanPrefab);
+        if (n_obtainable_food > 1) {
+            float diceRoll = Random.Range(0f, 1f);
+            if (diceRoll < altruism)
+                PlantTree();
+            else
+                return Reproduce(gm.humanPrefab);
+        }
 
         return null;
 

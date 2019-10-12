@@ -12,10 +12,11 @@ public class FoodManager : MonoBehaviour
 
     [SerializeField] GameObject tree_prefab;
     [SerializeField] int startingTrees;
-
+    [SerializeField] float wasteGeneratedByEating;
+    [SerializeField] float wasteAbsorbedByTrees;
     public GameObject trees_container;
     public GameObject foods_container;
-    public int default_n_foods  =10;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -61,7 +62,7 @@ public class FoodManager : MonoBehaviour
         Graph.updateTreeData(nTrees);
 
         //Reduce contamination
-        gm.contamination -= 0.001f * nTrees;
+        gm.contamination -= wasteAbsorbedByTrees * nTrees;
         if (gm.contamination < 0f)
             gm.contamination = 0f;
 
@@ -92,27 +93,6 @@ public class FoodManager : MonoBehaviour
     {
 
     }
-    //Food to spawn in each cycle
-    int NFoodsToSpawn()
-    {
-        return default_n_foods;
-    }
-    void GenerateAllFood()
-    {
-        //Destroy old food
-        for (int i = 0; i < foods.Count; i++)
-            Destroy(foods[i]);
-        foods.Clear();
-
-        //Generate new food for the day
-        int foods_to_spawn = NFoodsToSpawn();
-
-        for (int i = 0; i < foods_to_spawn; i++)
-        {
-            CreateFood();
-        }
-    }
-
     GameObject CreateFood()
     {
         GameObject new_food = Instantiate(food_prefab, foods_container.transform);
@@ -120,17 +100,10 @@ public class FoodManager : MonoBehaviour
         foods.Add(new_food);
         return new_food;
     }
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-
     public void DestroyFood(GameObject food)
     {
         //Increment contamination
-        gm.contamination += 0.01f;
+        gm.contamination += wasteGeneratedByEating;
         if (gm.contamination > 1f)
             gm.contamination = 1f;
 
