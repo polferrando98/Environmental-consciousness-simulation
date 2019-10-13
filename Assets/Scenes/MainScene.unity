@@ -698,7 +698,7 @@ MonoBehaviour:
   startingTrees: 14
   wasteGeneratedByEating: 0.01
   wasteAbsorbedByTrees: 0.01
-  daysToSimulate: 0
+  daysToSimulate: 10
 --- !u!1 &508480301
 GameObject:
   m_ObjectHideFlags: 0
