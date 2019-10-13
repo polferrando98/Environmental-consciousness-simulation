@@ -51,7 +51,7 @@ public class Window_Graph : MonoBehaviour {
         float xSize = (float)(rectTransform.rect.width) /((float)gm.parameters.DaysToSimulate);
         GameObject lastCircleGameObject = null;
      
-        for (int i = 0; i < valueList.Count; i++)
+        for (int i = 0; i < valueList.Count-1; i++)
         {
             float xPosition = 30f + i * xSize;
             float yPosition = (valueList[i] / yMaximum) * graphHeight;

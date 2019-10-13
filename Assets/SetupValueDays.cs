@@ -7,9 +7,9 @@ public class SetupValueDays : MonoBehaviour
 {
     public GameManager gm;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        //gm.parameters.DaysToSimulateFloat(GetComponent<Slider>().value);
+        GetComponent<Slider>().value = gm.parameters.DaysToSimulate;
     }
 
     // Update is called once per frame

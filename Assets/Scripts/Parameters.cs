@@ -39,8 +39,13 @@ public class Parameters : MonoBehaviour
     public  float WasteAbsorbedByTrees { get => wasteAbsorbedByTrees; set => wasteAbsorbedByTrees = value; }
     public  int DaysToSimulate { get => daysToSimulate; set => daysToSimulate = value; }
 
+    public void Awake()
+    {
+        DaysToSimulate = PlayerPrefs.GetInt("DaysToSimulate");
+    }
     public void DaysToSimulateFloat(float value)
     {
         DaysToSimulate = (int)value;
+        PlayerPrefs.SetInt("DaysToSimulate", DaysToSimulate);
     }
 }
