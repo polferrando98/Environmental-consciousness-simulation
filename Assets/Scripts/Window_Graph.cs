@@ -41,7 +41,7 @@ public class Window_Graph : MonoBehaviour {
         float graphHeight = graphContainer.sizeDelta.y;
         float yMaximum = 35f;
         RectTransform rectTransform = GameObject.Find("graphContainer").GetComponent<RectTransform>();
-        float xSize = (float)(rectTransform.rect.width - 30f) /((float)gm.parameters.daysToSimulate-1f);
+        float xSize = (float)(rectTransform.rect.width - 30f) /((float)Parameters.DaysToSimulate-1f);
         // 
         GameObject lastCircleGameObject = null;
         for (int i = 0; i < valueList.Count-1; i++) {

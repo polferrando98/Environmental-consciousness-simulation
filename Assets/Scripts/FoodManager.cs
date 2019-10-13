@@ -23,9 +23,9 @@ public class FoodManager : MonoBehaviour
         foods = new List<GameObject>();
         trees = new List<GameObject>();
         gm.cycle_manager.OnStart += HandleStart;
-        startingTrees = gm.parameters.startingTrees;
-        wasteAbsorbedByTrees = gm.parameters.wasteAbsorbedByTrees;
-        wasteGeneratedByEating = gm.parameters.wasteGeneratedByEating;
+        startingTrees = Parameters.StartingTrees;
+        wasteAbsorbedByTrees = Parameters.WasteAbsorbedByTrees;
+        wasteGeneratedByEating = Parameters.WasteGeneratedByEating;
     }
 
     void Start()

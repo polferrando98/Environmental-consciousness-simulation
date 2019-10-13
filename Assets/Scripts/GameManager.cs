@@ -15,14 +15,13 @@ public class GameManager : MonoBehaviour
     public GameObject treePrefab;
 
 
-    public Parameters parameters;
+
     private Collider boundaries;
 
     public float contamination = 0;
 
     void Awake()
     {
-        parameters = GetComponent<Parameters>();
         boundaries = GameObject.FindGameObjectsWithTag("Boundary")[0].GetComponent<Collider>();
         cycle_manager = GetComponent<CycleManager>();
         humans_manager = GetComponent<HumansManager>();

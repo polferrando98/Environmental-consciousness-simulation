@@ -16,8 +16,8 @@ public class Tree : Entity
     void Start()
     {
         gm = GameObject.FindObjectOfType<GameManager>();
-        reproductionChance = gm.parameters.treeReproductionChance;
-        maxFoodGeneration = gm.parameters.treeMaxFoodGeneration;
+        reproductionChance = Parameters.TreeReproductionChance;
+        maxFoodGeneration = Parameters.TreeMaxFoodGeneration;
     }
   
     public float GetDeathChance()
