@@ -31,11 +31,11 @@ public class Human : Entity
     {
         moving = false;
         gm = FindObjectOfType<GameManager>();
-        altruism = Parameters.HumanAltruism;
-        maxEnergy = Parameters.HumanMaxEnergy;
-        maxDeathChance = Parameters.HumanMaxDeathChance;
-        reproductionChance = Parameters.HumanReproductionChance;
-        foodLimit = Parameters.HumanFoodLimit;
+        altruism = gm.parameters.HumanAltruism;
+        maxEnergy = gm.parameters.HumanMaxEnergy;
+        maxDeathChance = gm.parameters.HumanMaxDeathChance;
+        reproductionChance = gm.parameters.HumanReproductionChance;
+        foodLimit = gm.parameters.HumanFoodLimit;
     }
 
     private void Start()

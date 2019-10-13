@@ -19,7 +19,7 @@ public class HumansManager : MonoBehaviour
     void Awake()
     {
         gm = FindObjectOfType<GameManager>();
-        starting_humans = Parameters.StartingHumans;
+        starting_humans = gm.parameters.StartingHumans;
         gm.cycle_manager.OnStart += HandleStart;
 
         humans = new List<GameObject>();
