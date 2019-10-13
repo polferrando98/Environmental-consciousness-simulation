@@ -53,7 +53,7 @@ public class Window_Graph : MonoBehaviour {
 
 
      
-        for (int i = 0; i < valueList.Count-1; i++)
+        for (int i = 0; i < valueList.Count; i++)
         {
             float xPosition = 30f + i * xSize;
             float yPosition = (valueList[i] / yMaximum) * graphHeight;

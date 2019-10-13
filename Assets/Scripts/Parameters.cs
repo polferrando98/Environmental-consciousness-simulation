@@ -46,7 +46,7 @@ public class Parameters : MonoBehaviour
     public void Awake()
     {
         DaysToSimulate = PlayerPrefs.GetInt("DaysToSimulate");
-        HumanAltruism = PlayerPrefs.GetFloat("HumanAltruism");
+        //HumanAltruism = PlayerPrefs.GetFloat("HumanAltruism");
     }
     public void DaysToSimulateFloat(float value)
     {

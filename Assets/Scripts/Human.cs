@@ -180,7 +180,7 @@ public class Human : Entity
             //Destroy(gameObject);
             anim.SetBool("dead", true);
 
-            StartCoroutine(DieAfterSeconds(2.5f));
+            StartCoroutine(DieAfterSeconds(1.69f));
             return true;
         }
         return false;
@@ -189,6 +189,8 @@ public class Human : Entity
     IEnumerator DieAfterSeconds(float seconds)
     {
         yield return new WaitForSeconds(seconds);
+        //Linea que faltava
+        Destroy(gameObject);
     }
 
 

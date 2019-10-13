@@ -85,6 +85,7 @@ public class FoodManager : MonoBehaviour
                 newTrees.Add(newTree);
                 newTree.transform.SetParent(trees_container.transform);
             }
+            
         }
         //Kill dead trees
         trees = trees.Where(tree => !tree.GetComponent<Tree>().Kill()).ToList();
