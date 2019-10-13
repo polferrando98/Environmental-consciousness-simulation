@@ -7,7 +7,7 @@ public class Parameters : MonoBehaviour
     [SerializeField]  int treeMaxFoodGeneration = 2;
     [SerializeField]  float treeReproductionChance = 0.1f;
 
-    [SerializeField]  float humanAltruism = 0.5f;
+    [SerializeField]  float humanAltruism;
     [SerializeField]  float humanMaxEnergy = 14;
     [SerializeField]  float humanMaxDeathChance = 0.5f;
     [SerializeField]  int humanFoodLimit = 2;
@@ -26,7 +26,11 @@ public class Parameters : MonoBehaviour
 
     public  int TreeMaxFoodGeneration { get => treeMaxFoodGeneration; set => treeMaxFoodGeneration = value; }
     public  float TreeReproductionChance { get => treeReproductionChance; set => treeReproductionChance = value; }
-    public  float HumanAltruism { get => humanAltruism; set => humanAltruism = value; }
+    public  float HumanAltruism {
+        get => humanAltruism;
+        set => humanAltruism = value;
+ 
+    }
     public  float HumanMaxEnergy { get => humanMaxEnergy; set => humanMaxEnergy = value; }
     public  float HumanMaxDeathChance { get => humanMaxDeathChance; set => humanMaxDeathChance = value; }
     public  int HumanFoodLimit { get => humanFoodLimit; set => humanFoodLimit = value; }
@@ -42,10 +46,16 @@ public class Parameters : MonoBehaviour
     public void Awake()
     {
         DaysToSimulate = PlayerPrefs.GetInt("DaysToSimulate");
+        HumanAltruism = PlayerPrefs.GetFloat("HumanAltruism");
     }
     public void DaysToSimulateFloat(float value)
     {
         DaysToSimulate = (int)value;
         PlayerPrefs.SetInt("DaysToSimulate", DaysToSimulate);
+    }
+    public void SetAltruism(float value)
+    {
+        HumanAltruism = value;
+        PlayerPrefs.SetFloat("HumanAltruism", HumanAltruism);
     }
 }

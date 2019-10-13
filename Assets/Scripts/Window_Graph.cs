@@ -50,6 +50,8 @@ public class Window_Graph : MonoBehaviour {
         float graphHeight = (float)rectTransform.rect.height-30f; // graphContainer.sizeDelta.y;
         float xSize = (float)(rectTransform.rect.width) /((float)gm.parameters.DaysToSimulate);
         GameObject lastCircleGameObject = null;
+
+
      
         for (int i = 0; i < valueList.Count-1; i++)
         {
