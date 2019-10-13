@@ -1,2 +1,0 @@
-# Environmental consciousness simulation
- 
