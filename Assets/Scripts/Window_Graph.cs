@@ -48,10 +48,10 @@ public class Window_Graph : MonoBehaviour {
         float yMaximum = 30f;
         RectTransform rectTransform = GameObject.Find("graphContainer").GetComponent<RectTransform>();
         float graphHeight = (float)rectTransform.rect.height-30f; // graphContainer.sizeDelta.y;
-        float xSize = (float)(rectTransform.rect.width) /((float)Parameters.DaysToSimulate);
+        float xSize = (float)(rectTransform.rect.width -30f) /(Parameters.DaysToSimulate);
         GameObject lastCircleGameObject = null;
      
-        for (int i = 0; i < valueList.Count; i++)
+        for (int i = 0; i < valueList.Count -1; i++)
         {
             float xPosition = 30f + i * xSize;
             float yPosition = (valueList[i] / yMaximum) * graphHeight;
