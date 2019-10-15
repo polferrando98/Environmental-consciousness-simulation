@@ -31,11 +31,11 @@ public class Human : Entity
     {
         moving = false;
         gm = FindObjectOfType<GameManager>();
-        altruism = Parameters.HumanAltruism;
-        maxEnergy = Parameters.HumanMaxEnergy;
-        maxDeathChance = Parameters.HumanMaxDeathChance;
-        reproductionChance = Parameters.HumanReproductionChance;
-        foodLimit = Parameters.HumanFoodLimit;
+        altruism = gm.parameters.HumanAltruism;
+        maxEnergy = gm.parameters.HumanMaxEnergy;
+        maxDeathChance = gm.parameters.HumanMaxDeathChance;
+        reproductionChance = gm.parameters.HumanReproductionChance;
+        foodLimit = gm.parameters.HumanFoodLimit;
     }
 
     private void Start()
@@ -180,7 +180,7 @@ public class Human : Entity
             //Destroy(gameObject);
             anim.SetBool("dead", true);
 
-            StartCoroutine(DieAfterSeconds(2.5f));
+            StartCoroutine(DieAfterSeconds(1.69f));
             return true;
         }
         return false;
@@ -189,6 +189,8 @@ public class Human : Entity
     IEnumerator DieAfterSeconds(float seconds)
     {
         yield return new WaitForSeconds(seconds);
+        //Linea que faltava
+        Destroy(gameObject);
     }
 
 

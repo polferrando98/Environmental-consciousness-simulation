@@ -18,7 +18,7 @@ public class Window_Graph : MonoBehaviour {
     public void renderPlot()
     {
         List<int> xAxis = new List<int>();
-        for(int i=0; i<Parameters.DaysToSimulate; i++)
+        for(int i=0; i<gm.parameters.DaysToSimulate; i++)
             xAxis.Add(2);
         ShowGraph(xAxis, new Color(1, 1, 1, 0.5f));
 
@@ -48,8 +48,11 @@ public class Window_Graph : MonoBehaviour {
         float yMaximum = 30f;
         RectTransform rectTransform = GameObject.Find("graphContainer").GetComponent<RectTransform>();
         float graphHeight = (float)rectTransform.rect.height-30f; // graphContainer.sizeDelta.y;
-        float xSize = (float)(rectTransform.rect.width -30f) /(Parameters.DaysToSimulate);
+        float xSize = (float)(rectTransform.rect.width) /((float)gm.parameters.DaysToSimulate);
+
         GameObject lastCircleGameObject = null;
+
+
      
         for (int i = 0; i < valueList.Count -1; i++)
         {

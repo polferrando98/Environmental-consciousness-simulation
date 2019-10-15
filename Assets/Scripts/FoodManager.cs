@@ -23,9 +23,9 @@ public class FoodManager : MonoBehaviour
         foods = new List<GameObject>();
         trees = new List<GameObject>();
         gm.cycle_manager.OnStart += HandleStart;
-        startingTrees = Parameters.StartingTrees;
-        wasteAbsorbedByTrees = Parameters.WasteAbsorbedByTrees;
-        wasteGeneratedByEating = Parameters.WasteGeneratedByEating;
+        startingTrees = gm.parameters.StartingTrees;
+        wasteAbsorbedByTrees = gm.parameters.WasteAbsorbedByTrees;
+        wasteGeneratedByEating = gm.parameters.WasteGeneratedByEating;
     }
 
     void Start()
@@ -85,6 +85,7 @@ public class FoodManager : MonoBehaviour
                 newTrees.Add(newTree);
                 newTree.transform.SetParent(trees_container.transform);
             }
+            
         }
         //Kill dead trees
         trees = trees.Where(tree => !tree.GetComponent<Tree>().Kill()).ToList();

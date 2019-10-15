@@ -33,8 +33,8 @@ public class CycleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        time_between_cycles= Parameters.TimeBetweenCycles;
-        time_to_move = Parameters.TimeToMove;
+        time_between_cycles= GetComponent<Parameters>().TimeBetweenCycles;
+        time_to_move = GetComponent<Parameters>().TimeToMove;
         first_update = true;
         is_mid_cycle = false;
         hm = FindObjectOfType<HumansManager>();
@@ -64,7 +64,7 @@ public class CycleManager : MonoBehaviour
     IEnumerator CycleUpdate()
     {
         // suspend execution for 5 seconds
-        for (int i=0; i<Parameters.DaysToSimulate; i++)
+        for (int i=0; i< gm.parameters.DaysToSimulate; i++)
         {
             yield return new WaitForSeconds(time_between_cycles);
             OnCycleBegin?.Invoke();

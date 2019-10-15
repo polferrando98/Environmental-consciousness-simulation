@@ -19,9 +19,10 @@ public class GameManager : MonoBehaviour
     private Collider boundaries;
 
     public float contamination = 0;
-
+    public Parameters parameters;
     void Awake()
     {
+        parameters = GetComponent<Parameters>();
         boundaries = GameObject.FindGameObjectsWithTag("Boundary")[0].GetComponent<Collider>();
         cycle_manager = GetComponent<CycleManager>();
         humans_manager = GetComponent<HumansManager>();
@@ -33,7 +34,6 @@ public class GameManager : MonoBehaviour
     {
 
     }
-
     // Update is called once per frame
     void Update()
     {
